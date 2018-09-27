@@ -1,3 +1,3 @@
-#The solution of the test task.
+# The solution of the test task.
 ## Что это?
 Решение тестового задания для Станислава Калишина.
