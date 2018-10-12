@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 
-class TransactionsTable extends Component {
+export default class TransactionsTable extends Component {
+  componentDidMount() {
+    this.props.update();
+  }
+
   render() {
     return (
       <table>
@@ -12,7 +16,7 @@ class TransactionsTable extends Component {
           </tr>
         </thead>
         <tbody>
-          {this.props.filteredTransactions.map((transaction) => (
+          {this.props.filteredTransactions.map(( transaction ) => (
             <tr key={transaction.id}>
               <td>
                 {transaction.id}
@@ -30,5 +34,3 @@ class TransactionsTable extends Component {
     );
   }
 }
-
-export default TransactionsTable;

@@ -1,3 +1,1 @@
-# The solution of the test task.
-## Что это?
-Решение тестового задания для Станислава Калишина.
+# A transactions and a filters. Part 2.

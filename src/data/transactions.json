@@ -1,0 +1,64 @@
+{
+  "transactions": [
+    {
+      "id": 0,
+      "value": 500,
+      "type": "income",
+      "date": "2018-09-01T00:01:34Z"
+    },
+    {
+      "id": 1,
+      "value": 29990,
+      "type": "expense",
+      "date": "2018-09-01T08:34:43Z"
+    },
+    {
+      "id": 2,
+      "value": 999990,
+      "type": "expense",
+      "date": "2018-09-02T18:21:23Z"
+    },
+    {
+      "id": 3,
+      "value": 100,
+      "type": "income",
+      "date": "2018-09-09T23:59:12Z"
+    },
+    {
+      "id": 4,
+      "value": 5,
+      "type": "expense",
+      "date": "2018-10-15T20:40:32Z"
+    },
+    {
+      "id": 5,
+      "value": 20000,
+      "type": "income",
+      "date": "2018-10-17T12:00:15Z"
+    },
+    {
+      "id": 6,
+      "value": 999,
+      "type": "income",
+      "date": "2018-10-25T13:00:28Z"
+    },
+    {
+      "id": 7,
+      "value": 1000,
+      "type": "expense",
+      "date": "2018-10-02T19:03:14Z"
+    },
+    {
+      "id": 8,
+      "value": 5000,
+      "type": "income",
+      "date": "2018-10-03T14:20:01Z"
+    },
+    {
+      "id": 9,
+      "value": 30000,
+      "type": "expense",
+      "date": "2018-10-03T15:30:00Z"
+    }
+  ]
+}
