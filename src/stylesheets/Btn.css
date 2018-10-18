@@ -8,6 +8,8 @@
   vertical-align: middle;
   text-transform: uppercase;
   border-radius: 3px;
+  padding: 0 2rem;
+  margin: 10px 5px;
   box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.3);
   transition-duration: 0.4s;
 }

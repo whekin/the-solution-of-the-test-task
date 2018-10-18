@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect, Link } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import axios from 'axios';
-import FiltersBtnGroup from './FilterBtnGroup';
+import FilterBtnGroup from './FilterBtnGroup';
+import SortBtnGroup from './SortBtnGroup';
 import TransactionsTable from './TransactionsTable';
 import AddTransactionForm from './AddTransactionForm';
 import CannotBeLoaded from './CannotBeLoaded';
@@ -31,6 +32,7 @@ export default class App extends Component {
     transactions: [],
     filteredTransactions: [],
     activedFilters: [],
+    activedSortBtn: 2,
     isLoadingData: true,
     isCannotBeLoaded: false,
     isModalOpen: false,
@@ -89,6 +91,14 @@ export default class App extends Component {
     this.setState({
       filteredTransactions: updatedFilteredTransactions,
       activedFilters: updatedActivedFilters,
+    });
+  };
+
+  handleSortBtnClick = (id, sort) => {
+    let transactions = this.state.transactions;
+    this.setState({
+      activedSortBtn: id,
+      filteredTransactions:  transactions.sort(sort),
     });
   };
 
@@ -272,15 +282,16 @@ export default class App extends Component {
                               render={() => (
                               <div className="wrapper">
                                 <Link to="/add">{language.link_add_text}</Link>
-                                <FiltersBtnGroup handleFilterBtnClick={this.handleFilterBtnClick}/>
-                                  <TransactionsTable
-                                    update={this.transactionTableUpdate}
-                                    filteredTransactions={this.state.filteredTransactions}/>
-                                  {this.state.filteredTransactions.length === 0
-                                    ? <div className="warning-text">
-                                        {language.there_is_not_transactions_text}
-                                      </div>
-                                    : ""}
+                                <FilterBtnGroup handleFilterBtnClick={this.handleFilterBtnClick}/>
+                                <SortBtnGroup actived={this.state.activedSortBtn} handleSortBtnClick={this.handleSortBtnClick}/>
+                                <TransactionsTable
+                                  update={this.transactionTableUpdate}
+                                  filteredTransactions={this.state.filteredTransactions}/>
+                                {this.state.filteredTransactions.length === 0
+                                  ? <div className="warning-text">
+                                      {language.there_is_not_transactions_text}
+                                    </div>
+                                  : ""}
                               </div>
                             )} />
                             <Route

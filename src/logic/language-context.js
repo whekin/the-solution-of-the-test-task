@@ -29,6 +29,9 @@ export const languages = {
     modal_mess_part_2: "добавлена!",
     modal_btn_close_text: "Хорошо!",
     other_theme_text: "Другая тема",
+    sort_for_date_text: "Сортировать по дате",
+    sort_for_value_text: "Сортировать по сумме",
+    sort_for_id_text: "Сортировать по Ай-Ди",
   },
   en: {
     name: "en",
@@ -58,6 +61,9 @@ export const languages = {
     modal_mess_part_2: "is added!",
     modal_btn_close_text: "Ok!",
     other_theme_text: "Other theme",
+    sort_for_date_text: "Sort by date",
+    sort_for_value_text: "Sort by value",
+    sort_for_id_text: "Sort by id",
   },
 };
 

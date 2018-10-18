@@ -14,6 +14,13 @@ export default class FilterBtn extends Component {
     }));
   };
 
+  componentDidUpdate() {
+    if ((this.props.actived !== undefined) && this.state.isActive !== this.props.actived)
+      this.setState({
+        isActive: this.props.actived,
+      });
+  }
+
   render() {
     const { isActive } = this.state;
     const { value } = this.props;
