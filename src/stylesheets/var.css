@@ -1,0 +1,37 @@
+:root {
+  --app-color-main: #03a9f4;
+  --app-background-color: #fafafa;
+  --app-text-color: #222;
+  --app-font-family: 'Roboto', sans-serif;
+  --app-font-size: 17px;
+  --app-header-height: 60px;
+  --app-perspective: 900px;
+
+  --fade-animation-duration: 1000ms;
+  --app-animation-duration: 500ms;
+
+  --btn-color: #fff;
+  --btn-color-hover: #fff;
+  --btn-background-color: #4caf50;
+  --btn-background-color-hover: #43a047;
+
+  --btn-toggle-color: #fff;
+  --btn-toggle-color-hover: #fff;
+  --btn-toogle-color-active: #fff;
+  --btn-toggle-background-color: #03a9f4;
+  --btn-toggle-background-color-hover: #039be5;
+  --btn-toggle-background-color-active: #ff9800;
+
+  --modal-header-color: #fff;
+  --modal-header-background-color: #03a9f4;
+  --modal-window-color: #333;
+  --modal-window-background-color: #fafafa;
+  --modal-footer-color: #333;
+  --modal-footer-background-color: rgba(0, 0, 0, 0.18);
+
+  --table-tr-even-background-color: rgba(0, 0, 0, 0.08);
+  --ease-transparent: rgba(0, 0, 0, 0.18);
+
+  --selection-color: #fff;
+  --selection-background-color: #777;
+}

@@ -1,0 +1,19 @@
+.Btn {
+  all: unset;
+  padding: 0 10px;
+  background-color: var(--btn-background-color);
+  color: var(--btn-color);
+  height: 37px;
+  line-height: 37px;
+  vertical-align: middle;
+  text-transform: uppercase;
+  border-radius: 3px;
+  box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.3);
+  transition-duration: 0.4s;
+}
+
+.Btn:hover {
+  color: var(--btn-color-hover);
+  background-color: var(--btn-background-color-hover);
+  box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.27);
+}

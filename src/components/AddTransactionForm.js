@@ -1,74 +1,127 @@
 import React, { Component } from 'react';
-import './AddTransactionForm.css';
+import { Link, Prompt } from 'react-router-dom';
+import Btn from './Btn';
+import Waves from '../frameworks/waves/';
+import { LanguageContext } from '../logic/language-context';
+import '../stylesheets/AddTransactionForm.css';
+
+const now = new Date();
+const theDate = `${now.getFullYear()}-${(now.getMonth() + 1) < 10? `0${now.getMonth() + 1}` : now.getMonth() + 1}-${now.getDate() < 10? `0${now.getDate()}` : now.getDate()}`;
+const theTime = `${now.getHours() < 10? `0${now.getHours()}` : now.getHours()}:${now.getMinutes() < 10? `0${now.getMinutes()}` : now.getMinutes()}`
 
 export default class AddTransactionForm extends Component {
   constructor(props) {
     super(props);
-    const now = new Date();
-    this.lastTransactionId = this.props.lastTransactionId;
-    this.state = {
-      type: "income",
-      value: 0,
-      date: `${now.getFullYear()}-${now.getMonth() < 10? `0${now.getMonth()}` : now.getMonth()}-${now.getDate() < 10? `0${now.getDate()}` : now.getDate()}`,
-      time: `${now.getHours() < 10? `0${now.getHours()}` : now.getHours()}:${now.getMinutes() < 10? `0${now.getMinutes()}` : now.getMinutes()}`
-    };
+
+    Waves.init({
+      duration: 1000,
+    });
   }
 
-  hundleChangeType = (event) => {
-    this.setState({ type: event.target.value });
+  state = {
+    isEditing: false,
+    lastTransactionId: this.props.lastTransactionId,
+    type: "income",
+    value: 10,
+    date: theDate,
+    time: theTime,
   };
 
-  hundleChangeValue = (event) => {
-    this.setState({ value: event.target.value });
-  };
+  handleChange = (event) => {
+    this.setState({
+      isEditing: true,
+      sended: false,
+      [event.target.name]: event.target.value,
+    });
+  }
 
-  hundleChangeDate = (event) => {
-    this.setState({ date: event.target.value });
-  };
-
-  hundleChangeTime = (event) => {
-    this.setState({ time: event.target.value });
-  };
-
-  hundleSubmit = (event) => {
+  handleSubmit = (event) => {
     event.preventDefault();
 
     this.props.onSubmit({
-      id: ++this.lastTransactionId,
+      id: this.state.lastTransactionId,
       type: this.state.type,
       value: this.state.value,
-      date: `${this.state.date}T${this.state.time}:00Z`
+      date: `${this.state.date}T${this.state.time}:00Z`,
     });
+
+    this.setState(( state ) => ({
+      lastTransactionId: state.lastTransactionId + 1,
+      isEditing: false,
+    }));
+
+    this.props.modalOpen();
   };
 
   render() {
     return (
-      <form onSubmit={this.hundleSubmit}>
-        <ul>
-          <li>
-            <label>Выберите тип</label>
-            <select value={this.state.type} onChange={this.hundleChangeType}>
-              <option value="income">Доход</option>
-              <option value="expense">Расход</option>
-            </select>
-          </li>
-          <li>
-            <label>Введите сумму</label>
-            <input type="number" value={this.state.value} placeholder="Сумма" onChange={this.hundleChangeValue} required/>
-          </li>
-          <li>
-            <label>Выберите дату</label>
-            <input type="date" value={this.state.date} onChange={this.hundleChangeDate} required/>
-          </li>
-          <li>
-            <label>Введите время</label>
-            <input type="time" value={this.state.time} onChange={this.hundleChangeTime} required/>
-          </li>
-          <li>
-            <input type="submit" value="Добавить транзакцию"/>
-          </li>
-        </ul>
-      </form>
+      <LanguageContext.Consumer>
+      {language => (
+        <div
+          className="AddTransactionForm"
+          style={
+            this.props.isModalOpen? {
+              filter: "blur(7px)"
+            } : {}}>
+          <Link className="we" to="/">{language.link_to_main_page_text}</Link>
+          <Prompt
+            when={this.state.isEditing}
+            message={language.sure_leave_page_text}/>
+          <form onSubmit={this.handleSubmit}>
+            <ul>
+              <li>
+                <label>{language.select_type_text}</label>
+                <select
+                  name="type"
+                  value={this.state.type}
+                  onChange={this.handleChange}>
+                  <option value="income">{language.btn_income_text}</option>
+                  <option value="expense">{language.btn_expense_text}</option>
+                </select>
+              </li>
+              <li>
+                <label>{language.select_value_text}</label>
+                <input
+                  min="10"
+                  max="1000000000"
+                  name="value"
+                  type="number"
+                  value={this.state.value}
+                  placeholder={language.placeholder_value_text}
+                  onChange={this.handleChange}
+                  required/>
+              </li>
+              <li>
+                <label>{language.select_date_text}</label>
+                <input
+                  name="date"
+                  type="date"
+                  min="2000-01-01"
+                  max={theDate}
+                  value={this.state.date}
+                  onChange={this.handleChange}
+                  required/>
+              </li>
+              <li>
+                <label>{language.select_time_text}</label>
+                <input
+                  name="time"
+                  type="time"
+                  value={this.state.time}
+                  onChange={this.handleChange}
+                  required/>
+              </li>
+              <li>
+                <Btn
+                  name="submit"
+                  type="submit"
+                  value={language.btn_add_transaction_text}/>
+              </li>
+            </ul>
+          </form>
+        </div>
+      )}
+      </LanguageContext.Consumer>
     );
   }
 }

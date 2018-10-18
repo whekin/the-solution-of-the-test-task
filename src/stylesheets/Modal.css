@@ -1,0 +1,124 @@
+.Modal {
+  transition-duration: 0.2s;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  perspective: 800px;
+  perspective-origin: center center;
+}
+
+.Modal.opened {
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+.Modal.opened .Modal__window {
+  transform-origin: center center;
+  animation: show 0.7s ease;
+  will-change: transform;
+}
+
+.Modal.closed {
+  z-index: -1000;
+  opacity: 0;
+  transition: opacity 1s;
+  animation: modal_hide 0.7s linear forwards;
+}
+
+.Modal.closed .Modal__window {
+  animation: hide 1s ease forwards;
+}
+
+.Modal__window {
+  position: absolute;
+  border-radius: 5px;
+  background-color: var(--modal-window-background-color);
+  color: var(--modal-window-color);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.18),
+              0 20px 50px rgba(0, 0, 0, 0.18);
+  perspective: inherit;
+  transform-style: preserve-3d;
+  font: 17px 'Roboto', sans-serif;
+}
+
+.Modal__header {
+  background-color: var(--modal-header-background-color);
+  height: 57px;
+  border-radius: 5px 5px 0 0;
+  color: var(--modal-header-color);
+  line-height: 57px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
+}
+
+.Modal__body {
+  padding: 20px;
+  margin-bottom: 57px;
+}
+
+.Modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: var(--modal-footer-background-color);
+  color: var(--modal-footer-color);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 57px;
+  line-height: 57px;
+  padding-left: 20px;
+  border-radius: 0 0 5px 5px;
+  perspective: inherit;
+  transform-style: inherit;
+}
+
+.Modal__footer .Btn {
+  margin-right: 20px;
+  transform: translateZ(10px);
+}
+
+@keyframes show {
+  from {
+    transform-origin: 0 0;
+    transform: translate3d(-300px, 0, -300px) rotateY(50deg);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0) rotateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes modal_hide {
+  from {
+    z-index: 1000;
+  }
+
+  99% {
+    z-index: 1000;
+  }
+  to {
+    z-index: -1000;
+  }
+}
+
+@keyframes hide {
+  to {
+    transform:  translate3d(-300px, 0, -300px) rotateY(50deg);
+    opacity: 0;
+  }
+}

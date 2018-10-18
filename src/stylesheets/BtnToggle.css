@@ -1,0 +1,28 @@
+.btn-toggle {
+    all: unset;
+    display: inline-bloc;
+    position: relative;
+    height: 36px;
+    line-height: 36px;
+    vertical-align: middle;
+    text-transform: uppercase;
+    background-color: var(--btn-toggle-background-color);
+    color: var(--btn-toggle-color);
+    border-radius: 2px;
+    padding: 0 2rem;
+    margin: 10px 5px;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.18);
+}
+
+.btn-toggle:hover {
+    color: var(--btn-toggle-color-hover);
+    background-color: var(--btn-toggle-background-color-hover);
+    box-shadow: 0 2px 5px 2px rgba(0, 0, 0, 0.18);
+}
+
+.btn-toggle.active {
+  color: var(--btn-toggle-color-active);
+  background-color: var(--btn-toggle-background-color-active);
+}

@@ -1,0 +1,6 @@
+.FilterBtnGroup {
+  margin-bottom: 10px;
+  overflow-x: auto;
+  width: calc(100vw - 40px);
+  white-space: nowrap;
+}
