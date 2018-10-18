@@ -25,9 +25,8 @@ export default class Modal extends Component {
   }
 
   handleClick = (event) => {
-    if (event.target.className === "Modal opened") {
+    if (event.target.className === "Modal opened")
       this.close();
-    }
   };
 
   handleMouseMove = (event) => {

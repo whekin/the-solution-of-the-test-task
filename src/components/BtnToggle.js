@@ -6,13 +6,13 @@ export default class FilterBtn extends Component {
     isActive: this.props.actived,
   };
 
-  hundlerBtnClick = () => {
+  handleBtnClick = () => {
     this.props.onClick(!this.state.isActive);
 
     this.setState(state => ({
       isActive: !state.isActive,
     }));
-  }
+  };
 
   render() {
     const { isActive } = this.state;
@@ -21,7 +21,7 @@ export default class FilterBtn extends Component {
     return (
       <button
         className={isActive ? "btn-toggle waves-effect waves-light active" : "btn-toggle waves-effect waves-light"}
-        onClick={this.hundlerBtnClick}>
+        onClick={this.handleBtnClick}>
       {value}
       </button>
     );

@@ -14,8 +14,6 @@ import colorThemes from '../data/colorThemes';
 import { appAnimationDuration, animationDuration } from '../data/consts';
 import '../stylesheets/App.css';
 
-console.log(window);
-
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -46,7 +44,7 @@ export default class App extends Component {
       this.setState({
         isLoadingData: false,
         transactions: transactions,
-        filteredTransactions: transactions,
+        filteredTransactions: this.sortTransations(transactions),
       });
 
       const theme = localStorage.getItem("theme");
@@ -59,6 +57,12 @@ export default class App extends Component {
         isCannotBeLoaded: true,
       })
     });
+  }
+
+  sortTransations(transactions) {
+    return transactions.sort(
+      ( a, b ) => ( Date.parse(a.date) - Date.parse(b.date) )
+    );
   }
 
   handleFilterBtnClick = (id, filter, isActive) => {
@@ -78,6 +82,8 @@ export default class App extends Component {
       if (updatedFilteredTransactions.length > 0)
         updatedFilteredTransactions = updatedFilteredTransactions.filter(item.filter);
     });
+
+    updatedFilteredTransactions = this.sortTransations(updatedFilteredTransactions);
 
     this.setState({
       filteredTransactions: updatedFilteredTransactions,
