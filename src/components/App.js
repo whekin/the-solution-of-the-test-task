@@ -14,6 +14,8 @@ import colorThemes from '../data/colorThemes';
 import { appAnimationDuration, animationDuration } from '../data/consts';
 import '../stylesheets/App.css';
 
+console.log(window);
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -237,12 +239,6 @@ export default class App extends Component {
                         <span>{language.header_text}</span>
                       </div>
                       <div className="App__header_ins_panel">
-                      {/*
-                        <Btn
-                          className=""
-                          value={language.other_theme_text}
-                          onClick={this.nextColorTheme}/>
-                      */}
                         <BtnTogggle
                           className="ThemeToggle"
                           value={language.night_text}

@@ -6,6 +6,11 @@ import '../stylesheets/Modal.css';
 const isMobile = 'ontouchstart' in document;
 
 export default class Modal extends Component {
+  constructor(props) {
+    super(props);
+    window.addEventListener("keydown", this.handleKeyDown);
+  }
+
   state = {
     moveX: window.innerWidth * 0.5,
     moveY: window.innerHeight * 0.5,
@@ -15,9 +20,13 @@ export default class Modal extends Component {
     },
   };
 
+  close() {
+    this.props.onModalClose();
+  }
+
   handleClick = (event) => {
     if (event.target.className === "Modal opened") {
-      this.props.onModalClose();
+      this.close();
     }
   };
 
@@ -34,6 +43,12 @@ export default class Modal extends Component {
       moveY: event.touches[0].clientY,
     });
   };
+
+  handleKeyDown = (event) => {
+    event.preventDefault();
+    if (event.keyCode === 13)
+      this.close();
+  }
 
   render() {
     const
