@@ -8,10 +8,11 @@ import AddTransactionForm from './AddTransactionForm';
 import CannotBeLoaded from './CannotBeLoaded';
 import Modal from './Modal';
 import BtnTogggle from './BtnToggle';
-import Waves from '../frameworks/waves/';
+import Waves from 'waves';
 import { LanguageContext, languages} from '../logic/language-context';
 import colorThemes from '../data/colorThemes';
 import { appAnimationDuration, animationDuration } from '../data/consts';
+import '../stylesheets/normalize.css';
 import '../stylesheets/App.css';
 
 export default class App extends Component {

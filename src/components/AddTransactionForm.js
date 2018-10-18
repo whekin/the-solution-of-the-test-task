@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Prompt } from 'react-router-dom';
 import Btn from './Btn';
-import Waves from '../frameworks/waves/';
+import Waves from 'waves';
 import { LanguageContext } from '../logic/language-context';
 import '../stylesheets/AddTransactionForm.css';
 
