@@ -16,8 +16,11 @@
   color: var(--app-text-color);
 }
 
-.TransactionsTable th {
+.TransactionsTable thead tr {
   border-bottom: 1px solid var(--app-color-main);
+}
+
+.TransactionsTable th {
   color: var(--app-color-main);
 }
 

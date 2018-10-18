@@ -39,7 +39,7 @@ a:hover {
 
 .App.anim-enter {
   transition-duration: var(--app-animation-duration);
-  transform: translateZ(-350px);
+  transform: scale(0.8);
   filter: brightness(90%);
   will-change: transform, filter;
 }
@@ -47,7 +47,7 @@ a:hover {
 .App.anim-exit {
   transition-duration: var(--app-animation-duration);
   transition-property: transform, filter;
-  transform: translateZ(0);
+  transform: scale(1);
   filter: brightness(100%);
 }
 
