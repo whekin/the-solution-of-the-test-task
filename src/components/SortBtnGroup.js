@@ -5,17 +5,17 @@ import '../stylesheets/FilterBtnGroup.css';
 
 const btns = [
   {
-    sort: ( a, b ) => ( a.id - b.id ),
-    lang_text_code: "sort_for_id_text",
+    sort: (a, b) => a.id - b.id,
+    langTextCode: "sort_for_id_text"
   },
   {
-    sort: ( a, b ) => ( a.value - b.value ),
-    lang_text_code: "sort_for_value_text"
+    sort: (a, b) => a.value - b.value,
+    langTextCode: "sort_for_value_text"
   },
   {
-    sort: ( a, b ) => ( Date.parse(a.date) - Date.parse(b.date) ),
-    lang_text_code: "sort_for_date_text",
-  },
+    sort: (a, b) => Date.parse(a.date) - Date.parse(b.date),
+    langTextCode: "sort_for_date_text"
+  }
 ];
 
 export default class SortBtnGroup extends Component {
@@ -24,23 +24,23 @@ export default class SortBtnGroup extends Component {
   }
 
   render() {
-    return(
+    return (
       <LanguageContext.Consumer>
-      {language => (
-        <div className="FilterBtnGroup">
-          {
-            btns.map(( btn, index ) => (
-              <SortBtn
-                key={index}
-                id={index}
-                actived={this.props.actived === index}
-                onClick={this.handleSortBtnClick}
-                sort={btn.sort}
-                value={language[btn.lang_text_code]} />
-            ))
-          }
-        </div>
-      )}
+        {language => (
+          <div className="FilterBtnGroup">
+            {
+              btns.map( (btn, index) => (
+                <SortBtn
+                  key={index}
+                  id={index}
+                  actived={this.props.actived === index}
+                  onClick={this.handleSortBtnClick}
+                  sort={btn.sort}
+                  value={language[btn.langTextCode]} />
+              ) )
+            }
+          </div>
+        )}
       </LanguageContext.Consumer>
     );
   }

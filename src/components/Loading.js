@@ -1,17 +1,17 @@
 import React from 'react';
 import { LanguageContext } from '../logic/language-context';
 
-const CannotBeLoaded = () => (
+const Loading = () => (
   <LanguageContext.Consumer>
     {language => (
-      <div className="cannotBeLoaded">
-        <div className="cannotBeLoaded__text">
-          {language.cannotBeLoaded_text}
+      <div className="loading">
+        <div className="loading__preload"></div>
+        <div className="loading__text">
+          {language.loading_text}
         </div>
       </div>
     )}
-
   </LanguageContext.Consumer>
 );
 
-export default CannotBeLoaded;
+export default Loading;

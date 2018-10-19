@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect, Link } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+  Link
+} from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import axios from 'axios';
+import Loading from './Loading';
 import FilterBtnGroup from './FilterBtnGroup';
 import SortBtnGroup from './SortBtnGroup';
 import TransactionsTable from './TransactionsTable';
@@ -10,25 +17,28 @@ import CannotBeLoaded from './CannotBeLoaded';
 import Modal from './Modal';
 import BtnTogggle from './BtnToggle';
 import Waves from '../scripts/waves';
-import { LanguageContext, languages} from '../logic/language-context';
+import { LanguageContext, languages } from '../logic/language-context';
 import colorThemes from '../data/colorThemes';
 import { appAnimationDuration, animationDuration } from '../data/consts';
 import '../stylesheets/normalize.css';
 import '../stylesheets/App.css';
 
+const LIGHT_THEME_INDEX = 0;
+
 export default class App extends Component {
   constructor(props) {
     super(props);
-
     this.appRef = React.createRef();
 
     Waves.init({
-      duration: 1000,
+      duration: 1000
     });
   }
 
   state = {
-    language: localStorage.getItem("language") ? localStorage.getItem("language") : "ru",
+    language: localStorage.getItem("language")
+      ? localStorage.getItem("language")
+      : "ru",
     transactions: [],
     filteredTransactions: [],
     activedFilters: [],
@@ -37,7 +47,7 @@ export default class App extends Component {
     isCannotBeLoaded: false,
     isModalOpen: false,
     animation: false,
-    currentColorTheme: localStorage.getItem("theme") ? +localStorage.getItem("theme") : 0,
+    currentColorTheme: localStorage.getItem("theme") || LIGHT_THEME_INDEX
   };
 
   componentDidMount() {
@@ -46,42 +56,32 @@ export default class App extends Component {
 
       this.setState({
         isLoadingData: false,
-        transactions: transactions,
-        filteredTransactions: this.sortTransations(transactions),
+        transactions,
+        filteredTransactions: transactions
       });
 
       const theme = localStorage.getItem("theme");
 
-      if (theme)
-        this.changeColorTheme(colorThemes[theme]);
+      if (theme) this.changeColorTheme(colorThemes[theme]);
     })
-    .catch(req => {
-      this.setState({
-        isCannotBeLoaded: true,
-      })
-    });
-  }
-
-  sortTransations(transactions) {
-    return transactions.sort(
-      ( a, b ) => ( Date.parse(a.date) - Date.parse(b.date) )
-    );
+      .catch( () => {
+        this.setState({
+          isCannotBeLoaded: true
+        });
+      });
   }
 
   handleFilterBtnClick = (id, filter, isActive) => {
     let updatedFilteredTransactions = this.state.transactions;
     const updatedActivedFilters = this.state.activedFilters;
 
-    if (isActive) {
-      updatedActivedFilters.push({ id, filter });
-    } else {
-      updatedActivedFilters.forEach(( e, index ) => {
-        if (e.id === id)
-          updatedActivedFilters.splice(index, 1);
+    if (isActive) updatedActivedFilters.push({ id, filter });
+    else
+      updatedActivedFilters.forEach( (e, index) => {
+        if (e.id === id) updatedActivedFilters.splice(index, 1);
       });
-    }
 
-    updatedActivedFilters.forEach(( item ) => {
+    updatedActivedFilters.forEach(item => {
       if (updatedFilteredTransactions.length > 0)
         updatedFilteredTransactions = updatedFilteredTransactions.filter(item.filter);
     });
@@ -90,15 +90,15 @@ export default class App extends Component {
 
     this.setState({
       filteredTransactions: updatedFilteredTransactions,
-      activedFilters: updatedActivedFilters,
+      activedFilters: updatedActivedFilters
     });
   };
 
   handleSortBtnClick = (id, sort) => {
-    let transactions = this.state.transactions;
+    const { transactions } = this.state;
     this.setState({
       activedSortBtn: id,
-      filteredTransactions:  transactions.sort(sort),
+      filteredTransactions: transactions.sort(sort)
     });
   };
 
@@ -106,55 +106,55 @@ export default class App extends Component {
     const updatedTransactions = this.state.transactions;
 
     updatedTransactions.push({
-      id, type, value, date,
+      id, type, value, date
     });
 
     this.setState({
       transactions: updatedTransactions,
       filteredTransactions: updatedTransactions,
-      activedFilters: [],
-    })
+      activedFilters: []
+    });
   };
 
   transactionTableUpdate = () => {
     this.setState({
       activedFilters: [],
-      filteredTransactions: this.state.transactions,
+      filteredTransactions: this.state.transactions
     });
   };
 
   onModalClose = () => {
     this.setState({
-      isModalOpen: false,
+      isModalOpen: false
     });
   };
 
   onModalOpen = () => {
     this.setState({
-      isModalOpen: true,
+      isModalOpen: true
     });
   };
 
   handleEnter = () => {
     this.setState({
-      animation: true,
+      animation: true
     });
   };
 
   handleExit = () => {
-    setTimeout(() => {
+    window.setTimeout( () => {
       this.setState({
-        animation: false,
-      })
+        animation: false
+      });
     }, animationDuration - appAnimationDuration);
   };
 
-  handleLanguageToggle = ( isActive ) => {
+  handleLanguageToggle = () => {
     this.setState(state => ({
       language:
         state.language === "ru"
-        ? "en"
-        : "ru"
+          ? "en"
+          : "ru"
     }), () => {
       localStorage.setItem("language", this.state.language);
     });
@@ -184,7 +184,7 @@ export default class App extends Component {
       tableTrEvenBackgroundColor,
       easeTransparent,
       selectionColor,
-      selectionBackgroundColor,
+      selectionBackgroundColor
     }) {
     const app = this.appRef.current;
 
@@ -213,11 +213,11 @@ export default class App extends Component {
     app.style.setProperty("--selection-background-color", selectionBackgroundColor);
   }
 
-  handleThemeNightToggle = ( isActive ) => {
+  handleThemeNightToggle = isActive => {
     const to = isActive ? 1 : 0;
     this.changeColorTheme(colorThemes[to]);
     this.setState({
-      currentColorTheme: to,
+      currentColorTheme: to
     }, () => {
       this.changeColorTheme(colorThemes[this.state.currentColorTheme]);
       localStorage.setItem("theme", this.state.currentColorTheme);
@@ -228,100 +228,97 @@ export default class App extends Component {
     return (
       <Router>
         <Route render={({ location }) => (
-          <LanguageContext.Provider value={this.state.language === "ru" ? languages.ru : languages.en}>
+          <LanguageContext.Provider
+            value={this.state.language === "ru"
+              ? languages.ru
+              : languages.en}>
             <LanguageContext.Consumer>
               {language => (
                 <div>
                   {this.state.isLoadingData && !this.state.isCannotBeLoaded
-                  ? <div className="loading">
-                      <div className="loading__preload"></div>
-                      <div className="loading__text">
-                        {language.loading_text}
-                      </div>
-                    </div>
-                  : this.state.isCannotBeLoaded
-                    ? <CannotBeLoaded/>
-                    : ""
+                    ? <Loading />
+                    : this.state.isCannotBeLoaded
+                      ? <CannotBeLoaded />
+                      : ""
                   }
                   {!this.state.isLoadingData
-                  ?
-                  <div
-                    className={
-                      `App ${!this.state.isLoadingData
-                        ? `loaded ${this.state.animation ? "anim-enter" : "anim-exit"}`
-                        : ""}`}
-                    ref={this.appRef}>
-                    <header className="App__header">
-                      <div className="App__header_text">
-                        <span>{language.header_text}</span>
-                      </div>
-                      <div className="App__header_ins_panel">
-                        <BtnTogggle
-                          className="ThemeToggle"
-                          value={language.night_text}
-                          actived={this.state.currentColorTheme === 1}
-                          onClick={this.handleThemeNightToggle} />
-                        <BtnTogggle
-                          className="LanguageToggle"
-                          value="En"
-                          actived={this.state.language === "en"}
-                          onClick={this.handleLanguageToggle} />
-                      </div>
-                    </header>
-                    <main className="App__main">
-                      <TransitionGroup>
-                        <CSSTransition
-                          key={location.key}
-                          classNames="fade"
-                          timeout={animationDuration}
-                          onEnter={this.handleEnter}
-                          onExit={this.handleExit}>
-                          <Switch location={location}>
-                            <Route
-                              exact path="/"
-                              render={() => (
-                              <div className="wrapper">
-                                <Link to="/add">{language.link_add_text}</Link>
-                                <FilterBtnGroup handleFilterBtnClick={this.handleFilterBtnClick}/>
-                                <SortBtnGroup actived={this.state.activedSortBtn} handleSortBtnClick={this.handleSortBtnClick}/>
-                                <TransactionsTable
-                                  update={this.transactionTableUpdate}
-                                  filteredTransactions={this.state.filteredTransactions}/>
-                                {this.state.filteredTransactions.length === 0
-                                  ? <div className="warning-text">
-                                      {language.there_is_not_transactions_text}
-                                    </div>
-                                  : ""}
-                              </div>
-                            )} />
-                            <Route
-                              path="/add"
-                              render={() => (
-                              <AddTransactionForm
-                                modalOpen={this.onModalOpen}
-                                isModalOpen={this.state.isModalOpen}
-                                lastTransactionId={this.state.transactions.length}
-                                onSubmit={this.handleAddTransaction}/>
-                            )} />
-                            <Route render={() => (
-                              <Redirect to="/"/>
-                            )} />
-                          </Switch>
-                        </CSSTransition>
-                      </TransitionGroup>
-                    </main>
-                    <Modal
-                      onModalClose={this.onModalClose}
-                      isOpen={this.state.isModalOpen}
-                      header={language.notification_text}
-                      message={`${language.modal_mess_part_1} №${this.state.transactions.length - 1} ${language.modal_mess_part_2}`} />
-                  </div>
-                  : ""}
+                    ? <div
+                      className={
+                        `App ${!this.state.isLoadingData
+                          ? `loaded ${this.state.animation ? "anim-enter" : "anim-exit"}`
+                          : ""}`}
+                      ref={this.appRef}>
+                      <header className="App__header">
+                        <div className="App__header_text">
+                          <span>{language.header_text}</span>
+                        </div>
+                        <div className="App__header_ins_panel">
+                          <BtnTogggle
+                            className="ThemeToggle"
+                            value={language.night_text}
+                            actived={this.state.currentColorTheme === 1}
+                            onClick={this.handleThemeNightToggle} />
+                          <BtnTogggle
+                            className="LanguageToggle"
+                            value="En"
+                            actived={this.state.language === "en"}
+                            onClick={this.handleLanguageToggle} />
+                        </div>
+                      </header>
+                      <main className="App__main">
+                        <TransitionGroup>
+                          <CSSTransition
+                            key={location.key}
+                            classNames="fade"
+                            timeout={animationDuration}
+                            onEnter={this.handleEnter}
+                            onExit={this.handleExit}>
+                            <Switch location={location}>
+                              <Route
+                                exact path="/"
+                                render={() => (
+                                  <div className="wrapper">
+                                    <Link to="/add">{language.link_add_text}</Link>
+                                    <FilterBtnGroup handleFilterBtnClick={this.handleFilterBtnClick} />
+                                    <SortBtnGroup actived={this.state.activedSortBtn} handleSortBtnClick={this.handleSortBtnClick} />
+                                    <TransactionsTable
+                                      update={this.transactionTableUpdate}
+                                      filteredTransactions={this.state.filteredTransactions} />
+                                    {!this.state.filteredTransactions.length
+                                      ? <div className="warning-text">
+                                        {language.there_is_not_transactions_text}
+                                      </div>
+                                      : ""}
+                                  </div>
+                                )} />
+                              <Route
+                                path="/add"
+                                render={() => (
+                                  <AddTransactionForm
+                                    modalOpen={this.onModalOpen}
+                                    isModalOpen={this.state.isModalOpen}
+                                    lastTransactionId={this.state.transactions.length}
+                                    onSubmit={this.handleAddTransaction} />
+                                )} />
+                              <Route render={() =>
+                                <Redirect to="/" />
+                              } />
+                            </Switch>
+                          </CSSTransition>
+                        </TransitionGroup>
+                      </main>
+                      <Modal
+                        onModalClose={this.onModalClose}
+                        isOpen={this.state.isModalOpen}
+                        header={language.notification_text}
+                        message={`${language.modal_mess_part_1} №${this.state.transactions.length - 1} ${language.modal_mess_part_2}`} />
+                    </div>
+                    : ""}
                 </div>
               )}
             </LanguageContext.Consumer>
           </LanguageContext.Provider>
-        )}/>
+        )} />
       </Router>
     );
   }

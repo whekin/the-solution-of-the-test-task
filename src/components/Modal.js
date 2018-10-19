@@ -16,34 +16,34 @@ export default class Modal extends Component {
     moveY: window.innerHeight * 0.5,
     resolution: {
       x: window.innerWidth,
-      y: window.innerHeight,
-    },
+      y: window.innerHeight
+    }
   };
 
   close() {
     this.props.onModalClose();
   }
 
-  handleClick = (event) => {
+  handleClick = event => {
     if (event.target.className === "Modal opened")
       this.close();
   };
 
-  handleMouseMove = (event) => {
+  handleMouseMove = event => {
     this.setState({
       moveX: event.clientX,
-      moveY: event.clientY,
+      moveY: event.clientY
     });
   };
 
-  handleTouchMove = (event) => {
+  handleTouchMove = event => {
     this.setState({
       moveX: event.touches[0].clientX,
-      moveY: event.touches[0].clientY,
+      moveY: event.touches[0].clientY
     });
   };
 
-  handleKeyDown = (event) => {
+  handleKeyDown = event => {
     event.preventDefault();
     if (event.keyCode === 13)
       this.close();
@@ -62,31 +62,31 @@ export default class Modal extends Component {
 
     return (
       <LanguageContext.Consumer>
-      {language => (
-        <div
-          className={`Modal ${this.props.isOpen ? "opened" : "closed"}`}
-          onMouseMove={this.props.isOpen && !isMobile ? this.handleMouseMove : () => {} /* it's optimization*/}
-          onTouchMove={this.props.isOpen ? this.handleTouchMove : () => {}}
-          onClick={this.handleClick}>
+        {language => (
           <div
-            style={{
-              transform,
-            }}
-            className="Modal__window">
-            <div className="Modal__header">{this.props.header}</div>
-            <div className="Modal__body">
-              <div className="Modal__body_content">
-                {this.props.message}
+            className={`Modal ${this.props.isOpen ? "opened" : "closed"}`}
+            onMouseMove={this.props.isOpen && !isMobile ? this.handleMouseMove : false}
+            onTouchMove={this.props.isOpen ? this.handleTouchMove : false}
+            onClick={this.handleClick}>
+            <div
+              style={{
+                transform
+              }}
+              className="Modal__window">
+              <div className="Modal__header">{this.props.header}</div>
+              <div className="Modal__body">
+                <div className="Modal__body_content">
+                  {this.props.message}
+                </div>
+              </div>
+              <div className="Modal__footer">
+                <Btn
+                  onClick={this.props.onModalClose}
+                  value={language.modal_btn_close_text} />
               </div>
             </div>
-            <div className="Modal__footer">
-              <Btn
-                onClick={this.props.onModalClose}
-                value={language.modal_btn_close_text}/>
-            </div>
           </div>
-        </div>
-      )}
+        )}
       </LanguageContext.Consumer>
     );
   }

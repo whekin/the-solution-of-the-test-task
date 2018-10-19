@@ -10,32 +10,38 @@ export default class TransactionsTable extends Component {
   render() {
     return (
       <LanguageContext.Consumer>
-      {language => (
-        <table className="TransactionsTable">
-        <thead>
-          <tr>
-            <th>{language.table_id_text}</th>
-            <th>{language.table_value_text}</th>
-            <th>{language.table_date_text}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.props.filteredTransactions.map(( transaction, index ) => (
-              <tr key={transaction.id}>
-                <td>
-                  {transaction.id}
-                </td>
-                <td>
-                  {transaction.type === "income" ? "+" : "-"}{language.name === "ru" ? transaction.value : `${(transaction.value / 60).toFixed(2)}$`}
-                </td>
-                <td>
-                  {new Date(transaction.date).toDateString()}
-                </td>
+        {language => (
+          <table className="TransactionsTable">
+            <thead>
+              <tr>
+                <th>{language.table_id_text}</th>
+                <th>{language.table_value_text}</th>
+                <th>{language.table_date_text}</th>
               </tr>
-          ))}
-        </tbody>
-      </table>
-      )}
+            </thead>
+            <tbody>
+              {this.props.filteredTransactions.map(transaction => (
+                <tr key={transaction.id}>
+                  <td>
+                    {transaction.id}
+                  </td>
+                  <td>
+                    {transaction.type === "income" ? "+" : "-"}
+                    {
+                      language.name === "ru"
+                        ? transaction.value
+                        : `${(transaction.value / 60).toFixed(2)}$`
+                    }
+                  </td>
+                  <td>
+                    {new Date(transaction.date).toDateString()}
+                  </td>
+                </tr>
+              ) )
+              }
+            </tbody>
+          </table>
+        )}
       </LanguageContext.Consumer>
     );
   }

@@ -3,7 +3,7 @@ import BtnToggle from './BtnToggle';
 
 export default class FilterBtn extends Component {
 
-  handleBtnClick = (isActive) => {
+  handleBtnClick = isActive => {
     const { id, filter } = this.props;
     this.props.onClick(id, filter, isActive);
   }
@@ -12,8 +12,7 @@ export default class FilterBtn extends Component {
     return (
       <BtnToggle
         {...this.props}
-        onClick={this.handleBtnClick}
-        />
+        onClick={this.handleBtnClick} />
     );
   }
 }

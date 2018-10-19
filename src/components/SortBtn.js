@@ -3,7 +3,7 @@ import BtnToggle from './BtnToggle';
 
 export default class SortBtn extends Component {
 
-  handleBtnClick = (isActive) => {
+  handleBtnClick = () => {
     this.props.onClick(this.props.id, this.props.sort);
   }
 
@@ -11,8 +11,7 @@ export default class SortBtn extends Component {
     return (
       <BtnToggle
         {...this.props}
-        onClick={this.handleBtnClick}
-        />
+        onClick={this.handleBtnClick} />
     );
   }
 }
