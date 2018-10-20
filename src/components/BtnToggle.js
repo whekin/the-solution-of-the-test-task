@@ -9,14 +9,13 @@ export default class FilterBtn extends Component {
   handleBtnClick = () => {
     this.props.onClick(!this.state.isActive);
 
-    this.setState(state => (
-      {
-        isActive: !state.isActive
-      }) );
+    this.setState(state => ({
+      isActive: !state.isActive
+    }) );
   };
 
   componentDidUpdate() {
-    if (!typeof this.props.actived === "undefined" && this.state.isActive !== this.props.actived)
+    if (!(typeof this.props.actived === "undefined") && this.state.isActive !== this.props.actived)
       this.setState({
         isActive: this.props.actived
       });

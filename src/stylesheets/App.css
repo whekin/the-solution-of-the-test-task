@@ -10,7 +10,6 @@ body {
   color: var(--app-text-color);
   font-family: var(--app-font-family);
   font-size: var(--app-font-size);
-  opacity: 0;
   overflow-y: auto;
   overflow-x: hidden;
   will-change: opacity, transform;
@@ -31,10 +30,6 @@ a:hover {
 ::selection {
   color: var(--selection-color);
   background-color: var(--selection-background-color);
-}
-
-.App.loaded {
-  opacity: 1;
 }
 
 .App.anim-enter {

@@ -22,7 +22,7 @@ const colorThemes = [
     tableTrEvenBackgroundColor: "rgba(0, 0, 0, 0.08)",
     easeTransparent: "rgba(0, 0, 0, 0.18)",
     selectionColor: "#fff",
-    selectionBackgroundColor: "#777",
+    selectionBackgroundColor: "#777"
   },
   {
     mainColor: "#4caf50",
@@ -47,8 +47,8 @@ const colorThemes = [
     tableTrEvenBackgroundColor: "rgba(255, 255, 255, 0.08)",
     easeTransparent: "rgba(255, 255, 255, 0.18)",
     selectionColor: "#222",
-    selectionBackgroundColor: "#fff",
-  },
+    selectionBackgroundColor: "#fff"
+  }
 ];
 
 export default colorThemes;

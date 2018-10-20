@@ -60,6 +60,7 @@ export default class AddTransactionForm extends Component {
         lastTransactionId: state.lastTransactionId + 1,
         isEditing: false
       }) );
+
     this.props.modalOpen();
   };
 
