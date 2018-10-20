@@ -16,7 +16,7 @@ import AddTransactionForm from './AddTransactionForm';
 import CannotBeLoaded from './CannotBeLoaded';
 import Modal from './Modal';
 import BtnTogggle from './BtnToggle';
-import Waves from '../scripts/waves';
+import Waves from 'node-waves';
 import { LanguageContext, languages } from '../logic/language-context';
 import showIf from '../logic/showIf';
 import colorThemes from '../data/colorThemes';
