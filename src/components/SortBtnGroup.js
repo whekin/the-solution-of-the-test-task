@@ -5,15 +5,15 @@ import '../stylesheets/FilterBtnGroup.css';
 
 export const sortBtns = [
   {
-    sort: (a, b) => a.id - b.id,
+    sort: (fTransaction, sTransaction) => fTransaction.id - sTransaction.id,
     langTextCode: "sort_for_id_text"
   },
   {
-    sort: (a, b) => a.value - b.value,
+    sort: (fTransaction, sTransaction) => fTransaction.value - sTransaction.value,
     langTextCode: "sort_for_value_text"
   },
   {
-    sort: (a, b) => Date.parse(a.date) - Date.parse(b.date),
+    sort: (fTransaction, sTransaction) => Date.parse(fTransaction.date) - Date.parse(sTransaction.date),
     langTextCode: "sort_for_date_text"
   }
 ];
