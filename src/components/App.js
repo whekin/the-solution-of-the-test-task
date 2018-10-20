@@ -265,13 +265,11 @@ export default class App extends Component {
                   {
                     showIf(
                       this.state.isLoadingData && !this.state.isCannotBeLoaded,
-                      <Loading />
-                    )
-                  }
-                  {
-                    showIf(
-                      this.state.isCannotBeLoaded,
-                      <CannotBeLoaded />
+                      <Loading />,
+                      showIf(
+                        this.state.isCannotBeLoaded,
+                        <CannotBeLoaded />
+                      )
                     )
                   }
                   {
