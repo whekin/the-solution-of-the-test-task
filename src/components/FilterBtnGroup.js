@@ -3,7 +3,7 @@ import FilterBtn from './FilterBtn';
 import { LanguageContext } from '../logic/language-context';
 import '../stylesheets/FilterBtnGroup.css';
 
-const btns = [
+export const filterBtns = [
   {
     filter: transaction => transaction.type === "income",
     langTextCode: "btn_income_text"
@@ -33,7 +33,7 @@ export default class FiltersGroup extends Component {
         {language => (
           <div className="FilterBtnGroup">
             {
-              btns.map( (btn, index) => (
+              filterBtns.map( (btn, index) => (
                 <FilterBtn
                   key={index}
                   id={index}

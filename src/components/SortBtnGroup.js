@@ -3,7 +3,7 @@ import SortBtn from './SortBtn';
 import { LanguageContext } from '../logic/language-context';
 import '../stylesheets/FilterBtnGroup.css';
 
-const btns = [
+export const sortBtns = [
   {
     sort: (a, b) => a.id - b.id,
     langTextCode: "sort_for_id_text"
@@ -29,7 +29,7 @@ export default class SortBtnGroup extends Component {
         {language => (
           <div className="FilterBtnGroup">
             {
-              btns.map( (btn, index) => (
+              sortBtns.map( (btn, index) => (
                 <SortBtn
                   key={index}
                   id={index}

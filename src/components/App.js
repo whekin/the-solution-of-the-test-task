@@ -10,7 +10,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import axios from 'axios';
 import Loading from './Loading';
 import FilterBtnGroup from './FilterBtnGroup';
-import SortBtnGroup from './SortBtnGroup';
+import SortBtnGroup, { sortBtns } from './SortBtnGroup';
 import TransactionsTable from './TransactionsTable';
 import AddTransactionForm from './AddTransactionForm';
 import CannotBeLoaded from './CannotBeLoaded';
@@ -46,6 +46,7 @@ export default class App extends Component {
     filteredTransactions: [],
     activedFilters: [],
     activedSortBtn: DEFAULT_SORT_BTN_INDEX,
+    currentSort: sortBtns[DEFAULT_SORT_BTN_INDEX].sort,
     isLoadingData: true,
     isCannotBeLoaded: false,
     isModalOpen: false,
@@ -99,6 +100,8 @@ export default class App extends Component {
         updatedFilteredTransactions = updatedFilteredTransactions.filter(item.filter);
     });
 
+    updatedFilteredTransactions = updatedFilteredTransactions.sort(this.state.currentSort);
+
     this.setState({
       filteredTransactions: updatedFilteredTransactions,
       activedFilters: updatedActivedFilters
@@ -114,6 +117,7 @@ export default class App extends Component {
     const { filteredTransactions } = this.state;
 
     this.setState({
+      currentSort: sort,
       activedSortBtn: id,
       filteredTransactions: filteredTransactions.sort(sort)
     });
