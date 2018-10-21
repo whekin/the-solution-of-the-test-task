@@ -53,8 +53,8 @@
     "wrap-iife": "off",
     "space-before-function-paren": "off",
     "react/prop-types": "off",
-    "valid-jsdoc": "off",
     "no-negated-condition": "off",
+    "valid-jsdoc": "off",
 
     "max-len": ["error", 120],
     "max-lines": ["warn", 1000],
