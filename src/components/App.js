@@ -21,7 +21,7 @@ import { LanguageContext, languages } from '../logic/language-context';
 import showIf from '../logic/showIf';
 import colorThemes from '../data/colorThemes';
 import { appAnimationDuration, animationDuration } from '../data/consts';
-import '../stylesheets/normalize.css';
+import 'normalize.css';
 import '../stylesheets/App.css';
 
 const LIGHT_THEME_INDEX = 0;
