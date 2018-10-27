@@ -14,7 +14,6 @@ import SortBtnGroup, { sortBtns } from './SortBtnGroup';
 import TransactionsTable from './TransactionsTable';
 import AddTransactionForm from './AddTransactionForm';
 import CannotBeLoaded from './CannotBeLoaded';
-import Modal from './Modal';
 import BtnTogggle from './BtnToggle';
 import Waves from 'node-waves';
 import { LanguageContext, languages } from '../logic/language-context';
@@ -49,7 +48,6 @@ export default class App extends Component {
     currentSort: sortBtns[DEFAULT_SORT_BTN_INDEX].sort,
     isLoadingData: true,
     isCannotBeLoaded: false,
-    isModalOpen: false,
     animation: false,
     currentColorTheme: localStorage.getItem("theme") || LIGHT_THEME_INDEX
   };
@@ -91,8 +89,8 @@ export default class App extends Component {
         filter
       });
     else
-      updatedActivedFilters.forEach( (e, index) => {
-        if (e.id === id) updatedActivedFilters.splice(index, 1);
+      updatedActivedFilters.forEach( (el, index) => {
+        if (el.id === id) updatedActivedFilters.splice(index, 1);
       });
 
     updatedActivedFilters.forEach(item => {
@@ -154,18 +152,6 @@ export default class App extends Component {
     });
   };
 
-  onModalClose = () => {
-    this.setState({
-      isModalOpen: false
-    });
-  };
-
-  onModalOpen = () => {
-    this.setState({
-      isModalOpen: true
-    });
-  };
-
   handleEnter = () => {
     this.setState({
       animation: true
@@ -207,12 +193,6 @@ export default class App extends Component {
    * @param {string} theme.btnToggleBackgroundColor
    * @param {string} theme.btnToggleBackgroundColorHover
    * @param {string} theme.btnToggleBackgroundColorActive
-   * @param {string} theme.modalHeaderColor
-   * @param {string} theme.modalHeaderBackgroundColor
-   * @param {string} theme.modalWindowColor
-   * @param {string} theme.modalWindowBackgroundColor
-   * @param {string} theme.modalFooterColor
-   * @param {string} theme.modalFooterBackgroundColor
    * @param {string} theme.tableTrEvenBackgroundColor
    * @param {string} theme.easeTransparent
    * @param {string} theme.selectionColor
@@ -234,12 +214,6 @@ export default class App extends Component {
     app.style.setProperty("--btn-toggle-background-color", theme.btnToggleBackgroundColor);
     app.style.setProperty("--btn-toggle-background-color-hover", theme.btnToggleBackgroundColorHover);
     app.style.setProperty("--btn-toggle-background-color-active", theme.btnToggleBackgroundColorActive);
-    app.style.setProperty("--modal-header-color", theme.modalHeaderColor);
-    app.style.setProperty("--modal-header-background-color", theme.modalHeaderBackgroundColor);
-    app.style.setProperty("--modal-window-color", theme.modalWindowColor);
-    app.style.setProperty("--modal-window-background-color", theme.modalWindowBackgroundColor);
-    app.style.setProperty("--modal-footer-color", theme.modalFooterColor);
-    app.style.setProperty("--modal-footer-background-color", theme.modalFooterBackgroundColor);
     app.style.setProperty("--table-tr-even-background-color", theme.tableTrEvenBackgroundColor);
     app.style.setProperty("--ease-transparent", theme.easeTransparent);
     app.style.setProperty("--selection-color", theme.selectionColor);
@@ -291,7 +265,7 @@ export default class App extends Component {
                             <BtnTogggle
                               className="ThemeToggle"
                               value={language.night_text}
-                              actived={this.state.currentColorTheme === 1}
+                              actived={this.state.currentColorTheme === "1"}
                               onClick={this.handleThemeNightToggle} />
                             <BtnTogggle
                               className="LanguageToggle"
@@ -337,7 +311,6 @@ export default class App extends Component {
                                   render={() => (
                                     <AddTransactionForm
                                       modalOpen={this.onModalOpen}
-                                      isModalOpen={this.state.isModalOpen}
                                       lastTransactionId={this.state.transactions.length}
                                       onSubmit={this.handleAddTransaction} />
                                   )} />
@@ -346,14 +319,6 @@ export default class App extends Component {
                             </CSSTransition>
                           </TransitionGroup>
                         </main>
-                        <Modal
-                          onModalClose={this.onModalClose}
-                          isOpen={this.state.isModalOpen}
-                          header={language.notification_text}
-                          message={
-                            `${language.modal_mess_part_1}
-                            №${this.state.transactions.length - 1}
-                            ${language.modal_mess_part_2}`} />
                       </div>
                     )
                   }

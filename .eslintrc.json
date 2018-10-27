@@ -38,7 +38,7 @@
     "one-var": "off",
     "linebreak-style": "off",
     "class-methods-use-this": "off",
-    "id-length": "error",
+    "id-length": ["error", { "exceptions": ["x", "y", "z", "e", "i", "j"] }],
     "no-invalid-this": "off",
     "no-mixed-operators": "off",
     "nonblock-statement-body-position": "off",

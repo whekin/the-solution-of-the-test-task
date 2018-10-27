@@ -60,22 +60,13 @@ export default class AddTransactionForm extends Component {
         lastTransactionId: state.lastTransactionId + 1,
         isEditing: false
       }) );
-
-    this.props.modalOpen();
   };
 
   render() {
     return (
       <LanguageContext.Consumer>
         {language => (
-          <div
-            className="AddTransactionForm"
-            style={
-              this.props.isModalOpen
-                ? {
-                  filter: "blur(7px)"
-                }
-                : {}}>
+          <div className="AddTransactionForm">
             <Link className="we" to="/">{language.link_to_main_page_text}</Link>
             <Prompt
               when={this.state.isEditing}
