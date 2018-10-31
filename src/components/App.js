@@ -32,9 +32,7 @@ export default class App extends Component {
     super(props);
     this.appRef = React.createRef();
 
-    Waves.init({
-      duration: 1000
-    });
+    Waves.init({ duration: 1000 });
   }
 
   state = {
@@ -67,9 +65,7 @@ export default class App extends Component {
       if (theme) this.changeColorTheme(colorThemes[theme]);
     })
       .catch( () => {
-        this.setState({
-          isCannotBeLoaded: true
-        });
+        this.setState({ isCannotBeLoaded: true });
       });
   }
 
@@ -153,16 +149,12 @@ export default class App extends Component {
   };
 
   handleEnter = () => {
-    this.setState({
-      animation: true
-    });
+    this.setState({ animation: true });
   };
 
   handleExit = () => {
     window.setTimeout( () => {
-      this.setState({
-        animation: false
-      });
+      this.setState({ animation: false });
     }, animationDuration - appAnimationDuration);
   };
 
@@ -223,9 +215,7 @@ export default class App extends Component {
   handleThemeNightToggle = isActive => {
     const themeIndex = isActive ? 1 : 0;
     this.changeColorTheme(colorThemes[themeIndex]);
-    this.setState({
-      currentColorTheme: themeIndex
-    }, () => {
+    this.setState({ currentColorTheme: themeIndex }, () => {
       this.changeColorTheme(colorThemes[this.state.currentColorTheme]);
       localStorage.setItem("theme", this.state.currentColorTheme);
     });

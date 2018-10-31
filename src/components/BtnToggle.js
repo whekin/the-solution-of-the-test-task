@@ -2,23 +2,17 @@ import React, { Component } from 'react';
 import '../stylesheets/BtnToggle.css';
 
 export default class FilterBtn extends Component {
-  state = {
-    isActive: this.props.actived
-  };
+  state = { isActive: this.props.actived };
 
   handleBtnClick = () => {
     this.props.onClick(!this.state.isActive);
 
-    this.setState(state => ({
-      isActive: !state.isActive
-    }) );
+    this.setState(state => ({ isActive: !state.isActive }) );
   };
 
   componentDidUpdate() {
     if (!(typeof this.props.actived === "undefined") && this.state.isActive !== this.props.actived)
-      this.setState({
-        isActive: this.props.actived
-      });
+      this.setState({ isActive: this.props.actived });
   }
 
   render() {

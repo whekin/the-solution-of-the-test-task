@@ -23,9 +23,7 @@ export default class AddTransactionForm extends Component {
   constructor(props) {
     super(props);
 
-    Waves.init({
-      duration: 1000
-    });
+    Waves.init({ duration: 1000 });
   }
 
   state = {
