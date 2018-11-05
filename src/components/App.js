@@ -17,7 +17,6 @@ import CannotBeLoaded from './CannotBeLoaded';
 import BtnTogggle from './BtnToggle';
 import Waves from 'node-waves';
 import { LanguageContext, languages } from '../logic/language-context';
-import showIf from '../logic/showIf';
 import colorThemes from '../data/colorThemes';
 import { appAnimationDuration, animationDuration } from '../data/consts';
 import 'normalize.css';
@@ -231,18 +230,13 @@ export default class App extends Component {
               {language => (
                 <div>
                   {
-                    showIf(
-                      this.state.isLoadingData && !this.state.isCannotBeLoaded,
-                      <Loading />,
-                      showIf(
-                        this.state.isCannotBeLoaded,
+                    this.state.isLoadingData && !this.state.isCannotBeLoaded &&
+                      <Loading /> ||
+                        this.state.isCannotBeLoaded &&
                         <CannotBeLoaded />
-                      )
-                    )
                   }
                   {
-                    showIf(
-                      !this.state.isLoadingData,
+                    !this.state.isLoadingData &&
                       <div
                         className={
                           `App ${this.state.animation ? "anim-enter" : "anim-exit"}`}
@@ -287,12 +281,10 @@ export default class App extends Component {
                                         update={this.transactionTableUpdate}
                                         filteredTransactions={this.state.filteredTransactions} />
                                       {
-                                        showIf(
-                                          !this.state.filteredTransactions.length,
-                                          <div className="warning-text">
-                                            {language.there_is_not_transactions_text}
-                                          </div>
-                                        )
+                                        !this.state.filteredTransactions.length &&
+                                        <div className="warning-text">
+                                          {language.there_is_not_transactions_text}
+                                        </div>
                                       }
                                     </div>
                                   )} />
@@ -310,7 +302,6 @@ export default class App extends Component {
                           </TransitionGroup>
                         </main>
                       </div>
-                    )
                   }
                 </div>
               )}

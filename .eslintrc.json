@@ -55,11 +55,11 @@
     "react/prop-types": "off",
     "no-negated-condition": "off",
     "valid-jsdoc": "off",
+    "operator-linebreak": "off",
 
     "max-len": ["error", 120],
     "max-lines": ["warn", 1000],
     "max-statements": ["warn", 35],
-    "operator-linebreak": ["error", "before"],
     "indent": ["error", 2],
     "quote-props": ["error", "as-needed"],
     "space-in-parens": ["error", "never", { "exceptions": ["()"] }],
