@@ -291,7 +291,7 @@ export default class App extends Component {
                             <BtnTogggle
                               className="ThemeToggle"
                               value={language.night_text}
-                              actived={this.state.currentColorTheme === 1}
+                              actived={this.state.currentColorTheme === "1"}
                               onClick={this.handleThemeNightToggle} />
                             <BtnTogggle
                               className="LanguageToggle"
