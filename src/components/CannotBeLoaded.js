@@ -10,7 +10,6 @@ const CannotBeLoaded = () => (
         </div>
       </div>
     )}
-
   </LanguageContext.Consumer>
 );
 

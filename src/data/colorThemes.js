@@ -1,5 +1,8 @@
-const colorThemes = [
-  {
+export const LIGHT_THEME = 'LIGHT_THEME';
+export const DARK_THEME = 'DARK_THEME';
+
+const colorThemes = {
+  [LIGHT_THEME]: {
     mainColor: "#03a9f4",
     appBackgroundColor: "#fafafa",
     appTextColor: "#222",
@@ -18,7 +21,7 @@ const colorThemes = [
     selectionColor: "#fff",
     selectionBackgroundColor: "#777"
   },
-  {
+  [DARK_THEME]: {
     mainColor: "#4caf50",
     appBackgroundColor: "#283238",
     appTextColor: "#fff",
@@ -37,6 +40,6 @@ const colorThemes = [
     selectionColor: "#222",
     selectionBackgroundColor: "#fff"
   }
-];
+};
 
 export default colorThemes;

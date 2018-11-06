@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SortBtn from './SortBtn';
+import SortBtn from '../containers/SortBtn';
 import { LanguageContext } from '../logic/language-context';
 import '../stylesheets/FilterBtnGroup.css';
 
@@ -19,10 +19,6 @@ export const sortBtns = [
 ];
 
 export default class SortBtnGroup extends Component {
-  handleSortBtnClick = (...args) => {
-    this.props.handleSortBtnClick(...args);
-  }
-
   render() {
     return (
       <LanguageContext.Consumer>
@@ -34,7 +30,6 @@ export default class SortBtnGroup extends Component {
                   key={index}
                   id={index}
                   actived={this.props.actived === index}
-                  onClick={this.handleSortBtnClick}
                   sort={btn.sort}
                   value={language[btn.langTextCode]} />
               ) )

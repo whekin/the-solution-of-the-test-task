@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import FilterBtn from './FilterBtn';
+import FilterBtn from '../containers/FilterBtn';
 import { LanguageContext } from '../logic/language-context';
 import '../stylesheets/FilterBtnGroup.css';
 
@@ -23,10 +23,6 @@ export const filterBtns = [
 ];
 
 export default class FiltersGroup extends Component {
-  handleFilterBtnClick = (...args) => {
-    this.props.handleFilterBtnClick(...args);
-  }
-
   render() {
     return (
       <LanguageContext.Consumer>
@@ -37,7 +33,6 @@ export default class FiltersGroup extends Component {
                 <FilterBtn
                   key={index}
                   id={index}
-                  onClick={this.handleFilterBtnClick}
                   filter={btn.filter}
                   value={language[btn.langTextCode]} />
               ) )

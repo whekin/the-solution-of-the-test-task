@@ -7,28 +7,27 @@ import {
   Link
 } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import axios from 'axios';
 import Loading from './Loading';
 import FilterBtnGroup from './FilterBtnGroup';
-import SortBtnGroup, { sortBtns } from './SortBtnGroup';
-import TransactionsTable from './TransactionsTable';
-import AddTransactionForm from './AddTransactionForm';
+import SortBtnGroup from './SortBtnGroup';
+import TransactionsTable from '../containers/TransactionsTable';
+import AddTransactionForm from '../containers/AddTransactionForm';
 import CannotBeLoaded from './CannotBeLoaded';
 import BtnTogggle from './BtnToggle';
 import Waves from 'node-waves';
 import { LanguageContext, languages } from '../logic/language-context';
-import colorThemes from '../data/colorThemes';
+import colorThemes, { DARK_THEME } from '../data/colorThemes';
+import { changeColorTheme } from '../logic/changeColorTheme';
 import { appAnimationDuration, animationDuration } from '../data/consts';
 import 'normalize.css';
 import '../stylesheets/App.css';
 
-const LIGHT_THEME_INDEX = 0;
 const DEFAULT_LANGUAGE_CODE = "ru";
-const DEFAULT_SORT_BTN_INDEX = 0;
 
 export default class App extends Component {
   constructor(props) {
     super(props);
+
     this.appRef = React.createRef();
 
     Waves.init({ duration: 1000 });
@@ -38,120 +37,14 @@ export default class App extends Component {
     language: localStorage.getItem("language")
       ? localStorage.getItem("language")
       : DEFAULT_LANGUAGE_CODE,
-    transactions: [],
-    filteredTransactions: [],
-    activedFilters: [],
-    activedSortBtn: DEFAULT_SORT_BTN_INDEX,
-    currentSort: sortBtns[DEFAULT_SORT_BTN_INDEX].sort,
-    isLoadingData: true,
-    isCannotBeLoaded: false,
-    animation: false,
-    currentColorTheme: localStorage.getItem("theme") || LIGHT_THEME_INDEX
+    animation: false
   };
 
-  componentDidMount() {
-    axios.get("http://localhost:3001/transactions").then(res => {
-      const transactions = res.data;
-
-      this.setState({
-        isLoadingData: false,
-        transactions,
-        filteredTransactions: transactions
-      });
-
-      const theme = localStorage.getItem("theme");
-
-      if (theme) this.changeColorTheme(colorThemes[theme]);
-    })
-      .catch( () => {
-        this.setState({ isCannotBeLoaded: true });
-      });
-  }
-
-  /**
-   * Handle FilterBtnGroup
-   * @param  {number}  id
-   * @param  {Function} filter
-   * @param  {boolean} isActive
-   */
-  handleFilterBtnClick = (id, filter, isActive) => {
-    let updatedFilteredTransactions = this.state.transactions;
-    const updatedActivedFilters = this.state.activedFilters;
-
-    if (isActive)
-      updatedActivedFilters.push({
-        id,
-        filter
-      });
-    else
-      updatedActivedFilters.forEach( (el, index) => {
-        if (el.id === id) updatedActivedFilters.splice(index, 1);
-      });
-
-    updatedActivedFilters.forEach(item => {
-      if (updatedFilteredTransactions.length > 0)
-        updatedFilteredTransactions = updatedFilteredTransactions.filter(item.filter);
-    });
-
-    updatedFilteredTransactions = updatedFilteredTransactions.sort(this.state.currentSort);
-
-    this.setState({
-      filteredTransactions: updatedFilteredTransactions,
-      activedFilters: updatedActivedFilters
-    });
-  };
-
-  /**
-   * Handle SortBtnClick
-   * @param  {number} id
-   * @param  {Function} sort
-   */
-  handleSortBtnClick = (id, sort) => {
-    const { filteredTransactions } = this.state;
-
-    this.setState({
-      currentSort: sort,
-      activedSortBtn: id,
-      filteredTransactions: filteredTransactions.sort(sort)
-    });
-  };
-
-  /**
-   * Hande addTransaction AddTransactionForm
-   * @param  {number} id
-   * @param  {string} type
-   * @param  {number} value
-   * @param  {string} date
-   */
-  handleAddTransaction = ({ id, type, value, date }) => {
-    const updatedTransactions = this.state.transactions;
-
-    updatedTransactions.push({
-      id,
-      type,
-      value,
-      date
-    });
-
-    this.setState({
-      transactions: updatedTransactions,
-      filteredTransactions: updatedTransactions,
-      activedFilters: []
-    });
-  };
-
-  transactionTableUpdate = () => {
-    this.setState({
-      activedFilters: [],
-      filteredTransactions: this.state.transactions
-    });
-  };
-
-  handleEnter = () => {
+  animationEnter = () => {
     this.setState({ animation: true });
   };
 
-  handleExit = () => {
+  animationExit = () => {
     window.setTimeout( () => {
       this.setState({ animation: false });
     }, animationDuration - appAnimationDuration);
@@ -168,57 +61,73 @@ export default class App extends Component {
     });
   };
 
-  /**
-   * Change color theme of the app
-   * @param {Object} theme
-   * @param {string} theme.mainColor
-   * @param {string} theme.appBackgroundColor
-   * @param {string} theme.appTextColor
-   * @param {string} theme.btnColor
-   * @param {string} theme.btnColorHover
-   * @param {string} theme.btnBackgroundColor
-   * @param {string} theme.btnBackgroundColorHover
-   * @param {string} theme.btnToggleColor
-   * @param {string} theme.btnToggleColorHover
-   * @param {string} theme.btnToggleColorActive
-   * @param {string} theme.btnToggleBackgroundColor
-   * @param {string} theme.btnToggleBackgroundColorHover
-   * @param {string} theme.btnToggleBackgroundColorActive
-   * @param {string} theme.tableTrEvenBackgroundColor
-   * @param {string} theme.easeTransparent
-   * @param {string} theme.selectionColor
-   * @param {string} theme.selectionBackgroundColor
-   */
-  changeColorTheme(theme) {
-    const app = this.appRef.current;
-
-    app.style.setProperty("--app-color-main", theme.mainColor);
-    app.style.setProperty("--app-background-color", theme.appBackgroundColor);
-    app.style.setProperty("--app-text-color", theme.appTextColor);
-    app.style.setProperty("--btn-color", theme.btnColor);
-    app.style.setProperty("--btn-color-hover", theme.btnColorHover);
-    app.style.setProperty("--btn-background-color", theme.btnBackgroundColor);
-    app.style.setProperty("--btn-background-color-hover", theme.btnBackgroundColorHover);
-    app.style.setProperty("--btn-toggle-color", theme.btnToggleColor);
-    app.style.setProperty("--btn-toggle-color-hover", theme.btnToggleColorHover);
-    app.style.setProperty("--btn-toggle-color-active", theme.btnToggleColorActive);
-    app.style.setProperty("--btn-toggle-background-color", theme.btnToggleBackgroundColor);
-    app.style.setProperty("--btn-toggle-background-color-hover", theme.btnToggleBackgroundColorHover);
-    app.style.setProperty("--btn-toggle-background-color-active", theme.btnToggleBackgroundColorActive);
-    app.style.setProperty("--table-tr-even-background-color", theme.tableTrEvenBackgroundColor);
-    app.style.setProperty("--ease-transparent", theme.easeTransparent);
-    app.style.setProperty("--selection-color", theme.selectionColor);
-    app.style.setProperty("--selection-background-color", theme.selectionBackgroundColor);
+  renderTemplate(location, language) {
+    if (this.props.loadingState === "loading_data")
+      return (
+        <Loading />
+      );
+    else if (this.props.loadingState === "fail")
+      return (
+        <CannotBeLoaded />
+      );
+    else if (this.props.loadingState === "loaded")
+      return (
+        <div
+          className={
+            `App ${this.state.animation ? "anim-enter" : "anim-exit"}`}
+          ref={app => {
+            if (app)
+              changeColorTheme(app, colorThemes[this.props.currentTheme]);
+          }}>
+          <header className="App__header">
+            <div className="App__header_text">
+              <span>{language.header_text}</span>
+            </div>
+            <div className="App__header_ins_panel">
+              <BtnTogggle
+                className="ThemeToggle"
+                value={language.night_text}
+                actived={this.props.currentTheme === DARK_THEME}
+                onClick={() => {
+                  this.props.changeTheme();
+                }} />
+              <BtnTogggle
+                className="LanguageToggle"
+                value="En"
+                actived={this.state.language === "en"}
+                onClick={this.handleLanguageToggle} />
+            </div>
+          </header>
+          <main className="App__main">
+            <TransitionGroup>
+              <CSSTransition
+                key={location.key}
+                classNames="fade"
+                timeout={animationDuration}
+                onEnter={this.animationEnter}
+                onExit={this.animationExit}>
+                <Switch location={location}>
+                  <Route
+                    exact path="/"
+                    render={() => (
+                      <div className="wrapper">
+                        <Link to="/add">{language.link_add_text}</Link>
+                        <FilterBtnGroup />
+                        <SortBtnGroup />
+                        <TransactionsTable />
+                      </div>
+                    )} />
+                  <Route
+                    path="/add"
+                    render={() => <AddTransactionForm /> } />
+                  <Route render={() => <Redirect to="/" /> } />
+                </Switch>
+              </CSSTransition>
+            </TransitionGroup>
+          </main>
+        </div>
+      );
   }
-
-  handleThemeNightToggle = isActive => {
-    const themeIndex = isActive ? 1 : 0;
-    this.changeColorTheme(colorThemes[themeIndex]);
-    this.setState({ currentColorTheme: themeIndex }, () => {
-      this.changeColorTheme(colorThemes[this.state.currentColorTheme]);
-      localStorage.setItem("theme", this.state.currentColorTheme);
-    });
-  };
 
   render() {
     return (
@@ -229,80 +138,7 @@ export default class App extends Component {
             <LanguageContext.Consumer>
               {language => (
                 <div>
-                  {
-                    this.state.isLoadingData && !this.state.isCannotBeLoaded &&
-                      <Loading /> ||
-                        this.state.isCannotBeLoaded &&
-                        <CannotBeLoaded />
-                  }
-                  {
-                    !this.state.isLoadingData &&
-                      <div
-                        className={
-                          `App ${this.state.animation ? "anim-enter" : "anim-exit"}`}
-                        ref={this.appRef}>
-                        <header className="App__header">
-                          <div className="App__header_text">
-                            <span>{language.header_text}</span>
-                          </div>
-                          <div className="App__header_ins_panel">
-                            <BtnTogggle
-                              className="ThemeToggle"
-                              value={language.night_text}
-                              actived={this.state.currentColorTheme === "1"}
-                              onClick={this.handleThemeNightToggle} />
-                            <BtnTogggle
-                              className="LanguageToggle"
-                              value="En"
-                              actived={this.state.language === "en"}
-                              onClick={this.handleLanguageToggle} />
-                          </div>
-                        </header>
-                        <main className="App__main">
-                          <TransitionGroup>
-                            <CSSTransition
-                              key={location.key}
-                              classNames="fade"
-                              timeout={animationDuration}
-                              onEnter={this.handleEnter}
-                              onExit={this.handleExit}>
-                              <Switch location={location}>
-                                <Route
-                                  exact path="/"
-                                  render={() => (
-                                    <div className="wrapper">
-                                      <Link to="/add">{language.link_add_text}</Link>
-                                      <FilterBtnGroup
-                                        handleFilterBtnClick={this.handleFilterBtnClick} />
-                                      <SortBtnGroup
-                                        actived={this.state.activedSortBtn}
-                                        handleSortBtnClick={this.handleSortBtnClick} />
-                                      <TransactionsTable
-                                        update={this.transactionTableUpdate}
-                                        filteredTransactions={this.state.filteredTransactions} />
-                                      {
-                                        !this.state.filteredTransactions.length &&
-                                        <div className="warning-text">
-                                          {language.there_is_not_transactions_text}
-                                        </div>
-                                      }
-                                    </div>
-                                  )} />
-                                <Route
-                                  path="/add"
-                                  render={() => (
-                                    <AddTransactionForm
-                                      modalOpen={this.onModalOpen}
-                                      lastTransactionId={this.state.transactions.length}
-                                      onSubmit={this.handleAddTransaction} />
-                                  )} />
-                                <Route render={() => <Redirect to="/" /> } />
-                              </Switch>
-                            </CSSTransition>
-                          </TransitionGroup>
-                        </main>
-                      </div>
-                  }
+                  {this.renderTemplate(location, language)}
                 </div>
               )}
             </LanguageContext.Consumer>

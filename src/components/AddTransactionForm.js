@@ -46,7 +46,7 @@ export default class AddTransactionForm extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    this.props.onSubmit({
+    this.props.addTransaction({
       id: this.state.lastTransactionId,
       type: this.state.type,
       value: this.state.value,

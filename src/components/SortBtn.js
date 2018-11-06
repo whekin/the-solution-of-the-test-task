@@ -1,17 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import BtnToggle from './BtnToggle';
 
-export default class SortBtn extends Component {
+const SortBtn = props => (
+  <BtnToggle
+    {...props}
+    actived={props.activedId === props.id}
+    onClick={() => {
+      props.activeSortBtn(props.id, props.sort);
+    }} />
+);
 
-  handleBtnClick = () => {
-    this.props.onClick(this.props.id, this.props.sort);
-  }
-
-  render() {
-    return (
-      <BtnToggle
-        {...this.props}
-        onClick={this.handleBtnClick} />
-    );
-  }
-}
+export default SortBtn;

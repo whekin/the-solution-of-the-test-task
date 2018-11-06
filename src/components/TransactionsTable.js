@@ -3,10 +3,6 @@ import { LanguageContext } from '../logic/language-context';
 import '../stylesheets/TransactionsTable.css';
 
 export default class TransactionsTable extends Component {
-  componentDidMount() {
-    this.props.update();
-  }
-
   render() {
     return (
       <LanguageContext.Consumer>
@@ -20,7 +16,7 @@ export default class TransactionsTable extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.props.filteredTransactions.map(transaction => (
+              {this.props.transactions.map(transaction => (
                 <tr key={transaction.id}>
                   <td>
                     {transaction.id}
