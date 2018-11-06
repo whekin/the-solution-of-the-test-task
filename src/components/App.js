@@ -11,14 +11,14 @@ import Loading from './Loading';
 import FilterBtnGroup from './FilterBtnGroup';
 import SortBtnGroup from './SortBtnGroup';
 import TransactionsTable from '../containers/TransactionsTable';
+import CounterpartsTable from '../containers/CounterpartsTable';
 import AddTransactionForm from '../containers/AddTransactionForm';
 import CannotBeLoaded from './CannotBeLoaded';
 import BtnTogggle from './BtnToggle';
 import Waves from 'node-waves';
 import { LanguageContext, languages } from '../logic/language-context';
-import colorThemes, { DARK_THEME } from '../data/colorThemes';
+import colorThemes, { DARK_THEME } from '../logic/colorThemes';
 import { changeColorTheme } from '../logic/changeColorTheme';
-import { appAnimationDuration, animationDuration } from '../data/consts';
 import 'normalize.css';
 import '../stylesheets/App.css';
 
@@ -30,24 +30,16 @@ export default class App extends Component {
 
     this.appRef = React.createRef();
 
+    this.props.getData('TRANSACTIONS', 'http://localhost:3001/transactions');
+    this.props.getData('COUNTERPARTS', 'http://localhost:3002/counterparts');
+
     Waves.init({ duration: 1000 });
   }
 
   state = {
     language: localStorage.getItem("language")
       ? localStorage.getItem("language")
-      : DEFAULT_LANGUAGE_CODE,
-    animation: false
-  };
-
-  animationEnter = () => {
-    this.setState({ animation: true });
-  };
-
-  animationExit = () => {
-    window.setTimeout( () => {
-      this.setState({ animation: false });
-    }, animationDuration - appAnimationDuration);
+      : DEFAULT_LANGUAGE_CODE
   };
 
   handleLanguageToggle = () => {
@@ -73,8 +65,7 @@ export default class App extends Component {
     else if (this.props.loadingState === "loaded")
       return (
         <div
-          className={
-            `App ${this.state.animation ? "anim-enter" : "anim-exit"}`}
+          className="App"
           ref={app => {
             if (app)
               changeColorTheme(app, colorThemes[this.props.currentTheme]);
@@ -103,9 +94,7 @@ export default class App extends Component {
               <CSSTransition
                 key={location.key}
                 classNames="fade"
-                timeout={animationDuration}
-                onEnter={this.animationEnter}
-                onExit={this.animationExit}>
+                timeout={1000}>
                 <Switch location={location}>
                   <Route
                     exact path="/"
@@ -115,6 +104,7 @@ export default class App extends Component {
                         <FilterBtnGroup />
                         <SortBtnGroup />
                         <TransactionsTable />
+                        <CounterpartsTable />
                       </div>
                     )} />
                   <Route

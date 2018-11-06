@@ -2,27 +2,34 @@ import axios from 'axios';
 
 export const TOGGLE_FILTER_BTN = 'TOGGLE_FILTER_BTN';
 export const ACTIVE_SORT_BTN = 'ACTIVE_SORT_BTN';
+
 export const TRANSACTIONS_REQUEST = 'TRANSACTIONS_REQUEST';
-export const TRANSACTIONS_SUCCESS = 'TRANCACTIONS_SUCCESS';
+export const TRANSACTIONS_SUCCESS = 'TRANSACTIONS_SUCCESS';
 export const TRANSACTIONS_FAIL = 'TRANSACTION_FAIL';
 export const ADD_TRANSACTION = 'ADD_TRANSACTION';
+
+export const COUNTERPARTS_REQUEST = 'COUNTERPARTS_REQUEST';
+export const COUNTERPARTS_SUCCESS = 'COUNTERPARTS_SUCCESS';
+export const COUNTERPARTS_FAIL = 'COUNTERPARTS_FAIL';
+
 export const CHANGE_THEME = 'CHANGE_THEME';
 export const SET_THEME = 'SET_THEME';
 
-export const getTransactions = () => dispatch => {
+export const getData = (type, address) => dispatch => {
   dispatch({
-    type: TRANSACTIONS_REQUEST
+    type: `${type}_REQUEST`
   });
 
-  axios.get("http://localhost:3001/transactions").then(res => {
-    dispatch({
-      type: TRANSACTIONS_SUCCESS,
-      payload: res.data
-    });
-  })
+  axios.get(address)
+    .then(res => {
+      dispatch({
+        type: `${type}_SUCCESS`,
+        payload: res.data
+      });
+    })
     .catch(reason => {
       dispatch({
-        type: TRANSACTIONS_FAIL,
+        type: `${type}_FAIL`,
         payload: reason
       });
     });

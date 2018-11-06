@@ -2,6 +2,11 @@ import {
   TRANSACTIONS_REQUEST,
   TRANSACTIONS_SUCCESS,
   TRANSACTIONS_FAIL,
+
+  COUNTERPARTS_REQUEST,
+  COUNTERPARTS_SUCCESS,
+  COUNTERPARTS_FAIL,
+
   TOGGLE_FILTER_BTN,
   ACTIVE_SORT_BTN,
   ADD_TRANSACTION,
@@ -9,11 +14,12 @@ import {
   SET_THEME
 } from '../actions';
 import { sortBtns } from '../components/SortBtnGroup';
-import { DARK_THEME, LIGHT_THEME } from '../data/colorThemes';
+import { DARK_THEME, LIGHT_THEME } from '../logic/colorThemes';
 
 export const initialState = {
   loadingState: "",
   transactions: [],
+  counterparts: [],
   activedFilters: [],
   activedSort: {
     id: 0,
@@ -79,6 +85,19 @@ const rootReducer = (state = initialState, action) => {
     return {
       ...state,
       loadingState: "fail"
+    };
+  case COUNTERPARTS_REQUEST:
+    return {
+      ...state
+    };
+  case COUNTERPARTS_SUCCESS:
+    return {
+      ...state,
+      counterparts: action.payload
+    };
+  case COUNTERPARTS_FAIL:
+    return {
+      ...state
     };
   case ADD_TRANSACTION:
     return {

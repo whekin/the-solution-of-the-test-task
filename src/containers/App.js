@@ -1,12 +1,14 @@
 import { connect } from 'react-redux';
 import App from '../components/App';
-import { getTransactions, changeTheme, setTheme } from '../actions';
+import { getData, changeTheme, setTheme } from '../actions';
 
 export default connect(state => ({
   loadingState: state.loadingState,
   currentTheme: state.currentTheme
 }), dispatch => ({
-  getTransactions: dispatch(getTransactions() ),
+  getData: (...args) => {
+    dispatch(getData(...args) );
+  },
   changeTheme: () => {
     dispatch(changeTheme() );
   },

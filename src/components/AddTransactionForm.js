@@ -31,6 +31,7 @@ export default class AddTransactionForm extends Component {
     lastTransactionId: this.props.lastTransactionId,
     type: "income",
     value: 10,
+    conterpartId: 0,
     date: theDate,
     time: theTime
   };
@@ -50,6 +51,7 @@ export default class AddTransactionForm extends Component {
       id: this.state.lastTransactionId,
       type: this.state.type,
       value: this.state.value,
+      conterpartId: parseInt(this.state.conterpartId, 10),
       date: `${this.state.date}T${this.state.time}:00Z`
     });
 
@@ -112,6 +114,23 @@ export default class AddTransactionForm extends Component {
                     value={this.state.time}
                     onChange={this.handleChange}
                     required />
+                </li>
+                <li>
+                  <label>Выберете контрагента</label>
+                  <select
+                    name="conterpartId"
+                    value={this.state.conterpartId}
+                    onChange={this.handleChange}>
+                    {
+                      this.props.conterparts.map(conterpart => (
+                        <option
+                          key={conterpart.id}
+                          value={conterpart.id}>
+                          {conterpart.name}
+                        </option>
+                      ) )
+                    }
+                  </select>
                 </li>
                 <li>
                   <Btn

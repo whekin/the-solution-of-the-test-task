@@ -11,6 +11,7 @@ export default connect(state => {
   transactions.sort(state.activedSort.sort);
 
   return {
-    transactions
+    transactions,
+    counterparts: state.counterparts
   };
 })(TransacitonsTable);
