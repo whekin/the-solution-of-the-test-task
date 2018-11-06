@@ -127,6 +127,7 @@ export default class App extends Component {
           </main>
         </div>
       );
+    return <div></div>;
   }
 
   render() {

@@ -57,7 +57,6 @@
     "valid-jsdoc": "off",
     "operator-linebreak": "off",
     "no-process-env": "off",
-    "consistent-return": "off",
 
     "max-len": ["error", 120],
     "max-lines": ["warn", 1000],
@@ -74,6 +73,7 @@
     "block-spacing": "error",
     "no-trailing-spaces": "error",
     "space-infix-ops": "error",
+    "consistent-return": "error",
     "semi": "error",
     "no-undef": "warn",
     "react/jsx-uses-react": "error",
