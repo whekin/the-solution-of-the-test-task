@@ -17,8 +17,8 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "json-server-one": "json-server --watch --port 3001 src/data/transactions.json",
-    "json-server-two": "json-server --watch --port 3002 src/data/counterparts.json",
+    "json-server-one": "json-server --watch --port 3001 --delay 2000 src/data/transactions.json",
+    "json-server-two": "json-server --watch --port 3002 --delay 2000 src/data/counterparts.json",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

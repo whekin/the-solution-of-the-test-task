@@ -3,7 +3,8 @@ import App from '../components/App';
 import { getData, changeTheme, setTheme } from '../actions';
 
 export default connect(state => ({
-  loadingState: state.loadingState,
+  transactions: state.transactions,
+  counterparts: state.counterparts,
   currentTheme: state.currentTheme
 }), dispatch => ({
   getData: (...args) => {

@@ -1,20 +1,27 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { LanguageContext } from '../logic/language-context';
+import Preloader from './Preloader';
 
-const TransactionsTable = ({ transactions, counterparts }) => (
-  <LanguageContext.Consumer>
-    {language => (
-      <table className="TransactionsTable">
-        <thead>
-          <tr>
-            <th>{language.table_id_text}</th>
-            <th>{language.table_value_text}</th>
-            <th>{language.table_date_text}</th>
-            <th>Контрагент</th>
-          </tr>
-        </thead>
+export default class TransactionsTable extends Component {
+  tbodyRender = language => {
+    const { transactions, counterparts } = this.props;
+
+    if (transactions.loadingState === "request"
+      || counterparts.loadingState === "request")
+      return (
         <tbody>
-          {transactions.map(transaction => (
+          <tr>
+            <td colSpan="4">
+              <Preloader />
+            </td>
+          </tr>
+        </tbody>
+      );
+    else if (transactions.loadingState === "success"
+      && counterparts.loadingState === "success")
+      return (
+        <tbody>
+          {transactions.data.map(transaction => (
             <tr key={transaction.id}>
               <td>
                 {transaction.id}
@@ -31,15 +38,35 @@ const TransactionsTable = ({ transactions, counterparts }) => (
                 {new Date(transaction.date).toDateString()}
               </td>
               <td>
-                {counterparts[transaction.counterpartId].name}
+                {counterparts.data[transaction.counterpartId].name}
               </td>
             </tr>
           ) )
           }
         </tbody>
-      </table>
-    )}
-  </LanguageContext.Consumer>
-);
+      );
+    else
+      return <tbody></tbody>;
+  }
 
-export default TransactionsTable;
+  render() {
+    return (
+      <LanguageContext.Consumer>
+        {language => (
+          <table className="TransactionsTable">
+            <thead>
+              <tr>
+                <th>{language.table_id_text}</th>
+                <th>{language.table_value_text}</th>
+                <th>{language.table_date_text}</th>
+                <th>{language.table_counterpart_text}</th>
+              </tr>
+            </thead>
+            {this.tbodyRender(language)}
+          </table>
+        )}
+      </LanguageContext.Consumer>
+    );
+  }
+}
+

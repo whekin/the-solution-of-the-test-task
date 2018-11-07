@@ -1,11 +1,7 @@
 import {
-  TRANSACTIONS_REQUEST,
-  TRANSACTIONS_SUCCESS,
-  TRANSACTIONS_FAIL,
-
-  COUNTERPARTS_REQUEST,
-  COUNTERPARTS_SUCCESS,
-  COUNTERPARTS_FAIL,
+  DATA_REQUEST,
+  DATA_SUCCESS,
+  DATA_FAIL,
 
   TOGGLE_FILTER_BTN,
   ACTIVE_SORT_BTN,
@@ -17,9 +13,14 @@ import { sortBtns } from '../components/SortBtnGroup';
 import { DARK_THEME, LIGHT_THEME } from '../logic/colorThemes';
 
 export const initialState = {
-  loadingState: "",
-  transactions: [],
-  counterparts: [],
+  transactions: {
+    loadingState: "initial",
+    data: []
+  },
+  counterparts: {
+    loadingState: "initial",
+    data: []
+  },
   activedFilters: [],
   activedSort: {
     id: 0,
@@ -70,39 +71,37 @@ const rootReducer = (state = initialState, action) => {
         sort: action.payload.sort
       }
     };
-  case TRANSACTIONS_REQUEST:
+  case DATA_REQUEST:
     return {
       ...state,
-      loadingState: "loading_data"
+      [action.payload.to]: {
+        loadingState: "request",
+        data: []
+      }
     };
-  case TRANSACTIONS_SUCCESS:
+  case DATA_SUCCESS:
     return {
       ...state,
-      transactions: action.payload,
-      loadingState: "loaded"
+      [action.payload.to]: {
+        loadingState: "success",
+        data: action.payload.data
+      }
     };
-  case TRANSACTIONS_FAIL:
+  case DATA_FAIL:
     return {
       ...state,
-      loadingState: "fail"
-    };
-  case COUNTERPARTS_REQUEST:
-    return {
-      ...state
-    };
-  case COUNTERPARTS_SUCCESS:
-    return {
-      ...state,
-      counterparts: action.payload
-    };
-  case COUNTERPARTS_FAIL:
-    return {
-      ...state
+      [action.payload.to]: {
+        loadingState: "fail",
+        data: []
+      }
     };
   case ADD_TRANSACTION:
     return {
       ...state,
-      transactions: state.transactions.concat(action.payload),
+      transactions: {
+        ...state.transactions,
+        data: state.transactions.data.concat(action.payload)
+      },
       activedFilters: []
     };
   default:

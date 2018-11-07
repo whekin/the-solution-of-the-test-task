@@ -6,6 +6,21 @@ body {
   overflow-y: hidden;
 }
 
+a {
+  color: var(--app-color-main);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  filter: brightness(90%);
+}
+
+::selection {
+  color: var(--selection-color);
+  background-color: var(--selection-background-color);
+}
+
 table {
   border-collapse: collapse;
 }

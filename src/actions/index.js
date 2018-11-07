@@ -3,34 +3,40 @@ import axios from 'axios';
 export const TOGGLE_FILTER_BTN = 'TOGGLE_FILTER_BTN';
 export const ACTIVE_SORT_BTN = 'ACTIVE_SORT_BTN';
 
-export const TRANSACTIONS_REQUEST = 'TRANSACTIONS_REQUEST';
-export const TRANSACTIONS_SUCCESS = 'TRANSACTIONS_SUCCESS';
-export const TRANSACTIONS_FAIL = 'TRANSACTION_FAIL';
-export const ADD_TRANSACTION = 'ADD_TRANSACTION';
+export const DATA_REQUEST = 'DATA_REQUEST';
+export const DATA_SUCCESS = 'DATA_SUCCESS';
+export const DATA_FAIL = 'DATA_FAIL';
 
-export const COUNTERPARTS_REQUEST = 'COUNTERPARTS_REQUEST';
-export const COUNTERPARTS_SUCCESS = 'COUNTERPARTS_SUCCESS';
-export const COUNTERPARTS_FAIL = 'COUNTERPARTS_FAIL';
+export const ADD_TRANSACTION = 'ADD_TRANSACTION';
 
 export const CHANGE_THEME = 'CHANGE_THEME';
 export const SET_THEME = 'SET_THEME';
 
-export const getData = (type, address) => dispatch => {
+export const getData = (to, address) => dispatch => {
   dispatch({
-    type: `${type}_REQUEST`
+    type: DATA_REQUEST,
+    payload: {
+      to
+    }
   });
 
   axios.get(address)
     .then(res => {
       dispatch({
-        type: `${type}_SUCCESS`,
-        payload: res.data
+        type: DATA_SUCCESS,
+        payload: {
+          to,
+          data: res.data
+        }
       });
     })
     .catch(reason => {
       dispatch({
-        type: `${type}_FAIL`,
-        payload: reason
+        type: DATA_FAIL,
+        payload: {
+          to,
+          reason
+        }
       });
     });
 };

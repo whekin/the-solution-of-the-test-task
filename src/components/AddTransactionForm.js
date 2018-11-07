@@ -28,7 +28,6 @@ export default class AddTransactionForm extends Component {
 
   state = {
     isEditing: false,
-    lastTransactionId: this.props.lastTransactionId,
     type: "income",
     value: 10,
     conterpartId: 0,
@@ -48,18 +47,16 @@ export default class AddTransactionForm extends Component {
     event.preventDefault();
 
     this.props.addTransaction({
-      id: this.state.lastTransactionId,
+      id: this.props.lastTransactionId,
       type: this.state.type,
       value: this.state.value,
-      conterpartId: parseInt(this.state.conterpartId, 10),
+      counterpartId: parseInt(this.state.conterpartId, 10),
       date: `${this.state.date}T${this.state.time}:00Z`
     });
 
-    this.setState(state => (
-      {
-        lastTransactionId: state.lastTransactionId + 1,
-        isEditing: false
-      }) );
+    this.setState({
+      isEditing: false
+    });
   };
 
   render() {
@@ -122,7 +119,7 @@ export default class AddTransactionForm extends Component {
                     value={this.state.conterpartId}
                     onChange={this.handleChange}>
                     {
-                      this.props.conterparts.map(conterpart => (
+                      this.props.counterparts.data.map(conterpart => (
                         <option
                           key={conterpart.id}
                           value={conterpart.id}>

@@ -4,10 +4,11 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-import './stylesheets/index.css';
 import App from './containers/App';
 import reducer from './reducers';
 import registerServiceWorker from './registerServiceWorker';
+import 'normalize.css';
+import './stylesheets/index.css';
 
 const middleware = [thunk];
 if (process.env.NODE_DEV !== 'prodation')
