@@ -22,6 +22,7 @@ export const languages = {
     select_type_text: "Выберете тип",
     select_value_text: "Укажите сумму",
     select_date_text: "Выберете дату",
+    select_counterpart_text: "Выберете контрагента",
     select_time_text: "Устрановите время",
     placeholder_value_text: "Сумма",
     btn_add_transaction_text: "Добавить новую транзакцию",
@@ -33,7 +34,7 @@ export const languages = {
     other_theme_text: "Другая тема",
     sort_for_date_text: "Сортировать по дате",
     sort_for_value_text: "Сортировать по сумме",
-    sort_for_id_text: "Сортировать по Ай-Ди",
+    sort_for_id_text: "Сортировать по Ай-Ди"
   },
   en: {
     name: "en",
@@ -53,10 +54,11 @@ export const languages = {
     btn_more_1000_text: "More 17$",
     btn_for_last_month_text: "For last month",
     sure_leave_page_text: "Do your sure you want to leave the page? The data won't save.",
-    select_type_text: "Select the type",
-    select_value_text: "Type the value",
-    select_date_text: "Select the date",
-    select_time_text: "Select the time",
+    select_type_text: "Select a type",
+    select_value_text: "Type a value",
+    select_date_text: "Select a date",
+    select_time_text: "Select a time",
+    select_counterpart_text: "Select a counterpart",
     placeholder_value_text: "Value",
     btn_add_transaction_text: "Add the new transaction",
     link_to_main_page_text: "Main page",
@@ -67,10 +69,8 @@ export const languages = {
     other_theme_text: "Other theme",
     sort_for_date_text: "Sort by date",
     sort_for_value_text: "Sort by value",
-    sort_for_id_text: "Sort by id",
-  },
+    sort_for_id_text: "Sort by id"
+  }
 };
 
-export const LanguageContext = React.createContext(
-  languages.ru
-);
+export const LanguageContext = React.createContext(languages.ru);

@@ -3,8 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect,
-  Link
+  Redirect
 } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import FilterBtnGroup from './FilterBtnGroup';
@@ -13,12 +12,12 @@ import TransactionsTable from '../containers/TransactionsTable';
 import CounterpartsTable from '../containers/CounterpartsTable';
 import AddTransactionForm from '../containers/AddTransactionForm';
 import BtnTogggle from './BtnToggle';
+import Menu from './Menu';
 import Waves from 'node-waves';
 import { LanguageContext, languages } from '../logic/language-context';
 import colorThemes, { DARK_THEME } from '../logic/colorThemes';
 import { changeColorTheme } from '../logic/changeColorTheme';
 import '../stylesheets/App.css';
-
 const DEFAULT_LANGUAGE_CODE = "ru";
 
 export default class App extends Component {
@@ -26,9 +25,10 @@ export default class App extends Component {
     super(props);
 
     this.appRef = React.createRef();
-  
-    this.props.getData('transactions', 'http://localhost:3001/transactions');
-    this.props.getData('counterparts', 'http://localhost:3002/counterparts');
+    const { getData } = this.props;
+
+    getData('transactions', 'http://localhost:3001/transactions');
+    getData('counterparts', 'http://localhost:3002/counterparts');
 
     Waves.init({ duration: 1000 });
   }
@@ -36,7 +36,8 @@ export default class App extends Component {
   state = {
     language: localStorage.getItem("language")
       ? localStorage.getItem("language")
-      : DEFAULT_LANGUAGE_CODE
+      : DEFAULT_LANGUAGE_CODE,
+    anchorEl: null
   };
 
   handleLanguageToggle = () => {
@@ -64,52 +65,56 @@ export default class App extends Component {
                     if (app)
                       changeColorTheme(app, colorThemes[this.props.currentTheme]);
                   }}>
-                <header className="App__header">
-                  <div className="App__header_text">
-                    <span>{language.header_text}</span>
-                  </div>
-                  <div className="App__header_ins_panel">
-                    <BtnTogggle
-                      className="ThemeToggle"
-                      value={language.night_text}
-                      actived={this.props.currentTheme === DARK_THEME}
-                      onClick={() => {
-                        this.props.changeTheme();
-                      }} />
-                    <BtnTogggle
-                      className="LanguageToggle"
-                      value="En"
-                      actived={this.state.language === "en"}
-                      onClick={this.handleLanguageToggle} />
-                  </div>
-                </header>
-                <main className="App__main">
-                  <TransitionGroup>
-                    <CSSTransition
-                      key={location.key}
-                      classNames="fade"
-                      timeout={1000}>
-                      <Switch location={location}>
-                        <Route
-                          exact path="/"
-                          render={() => (
-                            <div className="wrapper">
-                              <Link to="/add">{language.link_add_text}</Link>
-                              <FilterBtnGroup />
-                              <SortBtnGroup />
-                              <TransactionsTable />
-                              <CounterpartsTable />
-                            </div>
-                          )} />
-                        <Route
-                          path="/add"
-                          render={() => <AddTransactionForm /> } />
-                        <Route render={() => <Redirect to="/" /> } />
-                      </Switch>
-                    </CSSTransition>
-                  </TransitionGroup>
-                </main>
-              </div>
+                  <header className="App__header">
+                    <div className="App__header_menu">
+                      <Menu />
+                    </div>
+                    <div className="App__header_text">
+                      <span>{language.header_text}</span>
+                    </div>
+                    <div className="App__header_ins_panel">
+                      <BtnTogggle
+                        className="ThemeToggle"
+                        value={language.night_text}
+                        actived={this.props.currentTheme === DARK_THEME}
+                        onClick={() => {
+                          this.props.changeTheme();
+                        }} />
+                      <BtnTogggle
+                        className="LanguageToggle"
+                        value="En"
+                        actived={this.state.language === "en"}
+                        onClick={this.handleLanguageToggle} />
+                    </div>
+                  </header>
+                  <main className="App__main">
+                    <TransitionGroup>
+                      <CSSTransition
+                        key={location.key}
+                        classNames="fade"
+                        timeout={1000}>
+                        <Switch location={location}>
+                          <Route
+                            exact path="/"
+                            render={() => (
+                              <div className="wrapper">
+                                <FilterBtnGroup />
+                                <SortBtnGroup />
+                                <TransactionsTable />
+                              </div>
+                            )} />
+                          <Route
+                            path="/add"
+                            render={() => <AddTransactionForm /> } />
+                          <Route
+                            path="/counterparts"
+                            render={() => <CounterpartsTable />} />
+                          <Route render={() => <Redirect to="/" /> } />
+                        </Switch>
+                      </CSSTransition>
+                    </TransitionGroup>
+                  </main>
+                </div>
               )}
             </LanguageContext.Consumer>
           </LanguageContext.Provider>

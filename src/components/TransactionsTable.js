@@ -27,11 +27,11 @@ export default class TransactionsTable extends Component {
                 {transaction.id}
               </td>
               <td>
-                {transaction.type === "income" ? "+" : "-"}
+                {transaction.type === "income" ? "" : "- "}
                 {
                   language.name === "ru"
                     ? transaction.value
-                    : `${(transaction.value / 60).toFixed(2)}$`
+                    : `$${(transaction.value / 60).toFixed(2)}`
                 }
               </td>
               <td>

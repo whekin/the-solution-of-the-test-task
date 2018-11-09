@@ -27,13 +27,17 @@ body {
   margin-bottom: 20px;
 }
 
+.App__header_menu {
+  margin-left: 10px;
+}
+
 .App__header_text {
   flex: 0 1 100%;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   color: white;
-  font-size: 2rem;
-  font-weight: 300;
+  font-size: 1.5rem;
+  font-weight: 500;
   padding-left: 20px;
   padding-right: 20px;
 }
@@ -106,6 +110,10 @@ body {
 .fade-exit-done {
   transform: translateX(-100vw);
   opacity: 0;
+}
+
+a.nav_link:hover {
+  text-decoration: none;
 }
 
 @media only screen and (max-width: 550px) {

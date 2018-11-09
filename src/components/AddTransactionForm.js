@@ -30,7 +30,7 @@ export default class AddTransactionForm extends Component {
     isEditing: false,
     type: "income",
     value: 10,
-    conterpartId: 0,
+    counterpartId: 0,
     date: theDate,
     time: theTime
   };
@@ -50,7 +50,7 @@ export default class AddTransactionForm extends Component {
       id: this.props.lastTransactionId,
       type: this.state.type,
       value: this.state.value,
-      counterpartId: parseInt(this.state.conterpartId, 10),
+      counterpartId: parseInt(this.state.counterpartId, 10),
       date: `${this.state.date}T${this.state.time}:00Z`
     });
 
@@ -60,13 +60,15 @@ export default class AddTransactionForm extends Component {
   };
 
   render() {
+    const { isEditing, type, value, date, time, counterpartId } = this.state;
+
     return (
       <LanguageContext.Consumer>
         {language => (
           <div className="AddTransactionForm">
             <Link className="we" to="/">{language.link_to_main_page_text}</Link>
             <Prompt
-              when={this.state.isEditing}
+              when={isEditing}
               message={language.sure_leave_page_text} />
             <form onSubmit={this.handleSubmit}>
               <ul>
@@ -74,7 +76,7 @@ export default class AddTransactionForm extends Component {
                   <label>{language.select_type_text}</label>
                   <select
                     name="type"
-                    value={this.state.type}
+                    value={type}
                     onChange={this.handleChange}>
                     <option value="income">{language.btn_income_text}</option>
                     <option value="expense">{language.btn_expense_text}</option>
@@ -87,7 +89,7 @@ export default class AddTransactionForm extends Component {
                     max="1000000000"
                     name="value"
                     type="number"
-                    value={this.state.value}
+                    value={value}
                     placeholder={language.placeholder_value_text}
                     onChange={this.handleChange}
                     required />
@@ -99,7 +101,7 @@ export default class AddTransactionForm extends Component {
                     type="date"
                     min="2000-01-01"
                     max={theDate}
-                    value={this.state.date}
+                    value={date}
                     onChange={this.handleChange}
                     required />
                 </li>
@@ -108,22 +110,22 @@ export default class AddTransactionForm extends Component {
                   <input
                     name="time"
                     type="time"
-                    value={this.state.time}
+                    value={time}
                     onChange={this.handleChange}
                     required />
                 </li>
                 <li>
-                  <label>Выберете контрагента</label>
+                  <label>{language.select_counterpart_text}</label>
                   <select
-                    name="conterpartId"
-                    value={this.state.conterpartId}
+                    name="counterpartId"
+                    value={counterpartId}
                     onChange={this.handleChange}>
                     {
-                      this.props.counterparts.data.map(conterpart => (
+                      this.props.counterparts.data.map(counterpart => (
                         <option
-                          key={conterpart.id}
-                          value={conterpart.id}>
-                          {conterpart.name}
+                          key={counterpart.id}
+                          value={counterpart.id}>
+                          {counterpart.name}
                         </option>
                       ) )
                     }
