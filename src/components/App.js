@@ -11,6 +11,7 @@ import CounterpartsTable from '../containers/CounterpartsTable';
 import AddTransactionDialog from '../containers/AddTransactionDialog';
 import AddCounterpartDialog from '../containers/AddCounterpartDialog';
 import BtnTogggle from './BtnToggle';
+import NightFeaturePresentDialog from '../containers/NightFeaturePresentDialog';
 import Menu from '../containers/Menu';
 import Waves from 'node-waves';
 import { LanguageContext, languages } from '../logic/language-context';
@@ -37,7 +38,20 @@ export default class App extends Component {
     language: localStorage.getItem("language")
       ? localStorage.getItem("language")
       : DEFAULT_LANGUAGE_CODE,
-    anchorEl: null
+    anchorEl: null,
+    isActiveFeatureNightTheme: localStorage.getItem("isActiveFeatureNightTheme") || false,
+    handler: window.StripeCheckout.configure({
+      key: 'pk_test_s2ySk94pjLiU9giOAhAhAvOT',
+      image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+      locale: 'auto',
+      token: () => {
+        this.setState({
+          isActiveFeatureNightTheme: true
+        });
+
+        localStorage.setItem("isActiveFeatureNightTheme", true);
+      }
+    })
   };
 
   handleLanguageToggle = () => {
@@ -78,7 +92,10 @@ export default class App extends Component {
                         value={language.night_text}
                         actived={this.props.currentTheme === DARK_THEME}
                         onClick={() => {
-                          this.props.changeTheme();
+                          if (this.state.isActiveFeatureNightTheme)
+                            this.props.changeTheme();
+                          else
+                            this.props.toggleDialog("NightFeaturePresentDialog", true);
                         }} />
                       <BtnTogggle
                         className="LanguageToggle"
@@ -123,6 +140,7 @@ export default class App extends Component {
                       </CSSTransition>
                     </TransitionGroup>
                   </main>
+                  <NightFeaturePresentDialog handler={this.state.handler}/>
                 </div>
               )}
             </LanguageContext.Consumer>

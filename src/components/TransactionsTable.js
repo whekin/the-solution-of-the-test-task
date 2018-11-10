@@ -60,7 +60,7 @@ const tbody = (language, sort, { transactions, counterparts, currencyRate }) => 
       }
     </tbody>
   );
-}
+};
 
 class TransactionsTable extends Component {
   constructor(props) {

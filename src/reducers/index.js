@@ -32,6 +32,9 @@ export const initialState = {
     },
     AddCounterpartDialog: {
       isOpen: false
+    },
+    NightFeaturePresentDialog: {
+      isOpen: false
     }
   }
 };
