@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Link, Prompt } from 'react-router-dom';
+import { Prompt, withRouter } from 'react-router-dom';
 import Btn from './Btn';
 import Waves from 'node-waves';
 import { LanguageContext } from '../logic/language-context';
-import '../stylesheets/AddTransactionForm.css';
 
 const now = new Date();
 const nowWithZero = {
@@ -15,11 +14,10 @@ const nowWithZero = {
   hour: now.getHours() < 10 ? `0${now.getHours()}` : now.getHours(),
   minute: now.getMinutes() < 10 ? `0${now.getMinutes()}` : now.getMinutes()
 };
-
 const theDate = `${nowWithZero.year}-${nowWithZero.month}-${nowWithZero.day}`;
 const theTime = `${nowWithZero.hour}:${nowWithZero.minute}`;
 
-export default class AddTransactionForm extends Component {
+class AddTransactionForm extends Component {
   constructor(props) {
     super(props);
 
@@ -46,6 +44,8 @@ export default class AddTransactionForm extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
+    this.props.onSubmit();
+
     this.props.addTransaction({
       id: this.props.lastTransactionId,
       type: this.state.type,
@@ -56,6 +56,8 @@ export default class AddTransactionForm extends Component {
 
     this.setState({
       isEditing: false
+    }, () => {
+      this.props.history.push("/transactions");
     });
   };
 
@@ -65,83 +67,84 @@ export default class AddTransactionForm extends Component {
     return (
       <LanguageContext.Consumer>
         {language => (
-          <div className="AddTransactionForm">
-            <Link className="we" to="/">{language.link_to_main_page_text}</Link>
+          <form
+            onSubmit={this.handleSubmit}
+            className="AddTransactionForm">
             <Prompt
               when={isEditing}
               message={language.sure_leave_page_text} />
-            <form onSubmit={this.handleSubmit}>
-              <ul>
-                <li>
-                  <label>{language.select_type_text}</label>
-                  <select
-                    name="type"
-                    value={type}
-                    onChange={this.handleChange}>
-                    <option value="income">{language.btn_income_text}</option>
-                    <option value="expense">{language.btn_expense_text}</option>
-                  </select>
-                </li>
-                <li>
-                  <label>{language.select_value_text}</label>
-                  <input
-                    min="10"
-                    max="1000000000"
-                    name="value"
-                    type="number"
-                    value={value}
-                    placeholder={language.placeholder_value_text}
-                    onChange={this.handleChange}
-                    required />
-                </li>
-                <li>
-                  <label>{language.select_date_text}</label>
-                  <input
-                    name="date"
-                    type="date"
-                    min="2000-01-01"
-                    max={theDate}
-                    value={date}
-                    onChange={this.handleChange}
-                    required />
-                </li>
-                <li>
-                  <label>{language.select_time_text}</label>
-                  <input
-                    name="time"
-                    type="time"
-                    value={time}
-                    onChange={this.handleChange}
-                    required />
-                </li>
-                <li>
-                  <label>{language.select_counterpart_text}</label>
-                  <select
-                    name="counterpartId"
-                    value={counterpartId}
-                    onChange={this.handleChange}>
-                    {
-                      this.props.counterparts.data.map(counterpart => (
-                        <option
-                          key={counterpart.id}
-                          value={counterpart.id}>
-                          {counterpart.name}
-                        </option>
-                      ) )
-                    }
-                  </select>
-                </li>
-                <li>
-                  <Btn
-                    name="submit"
-                    type="submit"
-                    value={language.btn_add_transaction_text} />
-                </li>
-              </ul>
-            </form>
-          </div>
+            <ul>
+              <li>
+                <label>{language.select_type_text}</label>
+                <select
+                  name="type"
+                  value={type}
+                  onChange={this.handleChange}>
+                  <option value="income">{language.btn_income_text}</option>
+                  <option value="expense">{language.btn_expense_text}</option>
+                </select>
+              </li>
+              <li>
+                <label>{language.select_value_text}</label>
+                <input
+                  min="10"
+                  max="1000000000"
+                  name="value"
+                  type="number"
+                  value={value}
+                  placeholder={language.placeholder_value_text}
+                  onChange={this.handleChange}
+                  required />
+              </li>
+              <li>
+                <label>{language.select_date_text}</label>
+                <input
+                  name="date"
+                  type="date"
+                  min="2000-01-01"
+                  max={theDate}
+                  value={date}
+                  onChange={this.handleChange}
+                  required />
+              </li>
+              <li>
+                <label>{language.select_time_text}</label>
+                <input
+                  name="time"
+                  type="time"
+                  value={time}
+                  onChange={this.handleChange}
+                  required />
+              </li>
+              <li>
+                <label>{language.select_counterpart_text}</label>
+                <select
+                  name="counterpartId"
+                  value={counterpartId}
+                  onChange={this.handleChange}>
+                  {
+                    this.props.counterparts.data.map(counterpart => (
+                      <option
+                        key={counterpart.id}
+                        value={counterpart.id}>
+                        {counterpart.name}
+                      </option>
+                    ) )
+                  }
+                </select>
+              </li>
+              <li>
+                <Btn
+                  name="submit"
+                  type="submit"
+                  value={language.add_transaction_text} />
+              </li>
+            </ul>
+          </form>
         )}
       </LanguageContext.Consumer>
     );
   }
 }
+
+export default withRouter(AddTransactionForm);

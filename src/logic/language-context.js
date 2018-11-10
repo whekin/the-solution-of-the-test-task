@@ -25,16 +25,20 @@ export const languages = {
     select_counterpart_text: "Выберете контрагента",
     select_time_text: "Устрановите время",
     placeholder_value_text: "Сумма",
-    btn_add_transaction_text: "Добавить новую транзакцию",
+    add_transaction_text: "Добавить новую транзакцию",
+    add_counterpart_text: "Добавить нового контерагента",
+    name_text: "Имя",
     link_to_main_page_text: "Главная",
     notification_text: "Уведомление",
     modal_mess_part_1: "Транзакция",
     modal_mess_part_2: "добавлена!",
     modal_btn_close_text: "Хорошо!",
     other_theme_text: "Другая тема",
-    sort_for_date_text: "Сортировать по дате",
-    sort_for_value_text: "Сортировать по сумме",
-    sort_for_id_text: "Сортировать по Ай-Ди"
+    sort_text: "Sort",
+    dialog_title_add_transaction: "Добавить новую транзакцию",
+    dialog_titile_add_counterpart: "Добавить нового контерагента",
+    transactions_table_text: "Транзакции",
+    counterparts_table_text: "Контерагенты"
   },
   en: {
     name: "en",
@@ -60,16 +64,20 @@ export const languages = {
     select_time_text: "Select a time",
     select_counterpart_text: "Select a counterpart",
     placeholder_value_text: "Value",
-    btn_add_transaction_text: "Add the new transaction",
+    add_transaction_text: "Add the new transaction",
+    add_counterpart_text: "Add the new counterpart",
+    name_text: "Name",
     link_to_main_page_text: "Main page",
     notification_text: "Notification",
     modal_mess_part_1: "The transaction",
     modal_mess_part_2: "is added!",
     modal_btn_close_text: "Ok!",
     other_theme_text: "Other theme",
-    sort_for_date_text: "Sort by date",
-    sort_for_value_text: "Sort by value",
-    sort_for_id_text: "Sort by id"
+    sort_text: "Сортировать",
+    dialog_title_add_transaction: "Add a new transaction",
+    dialog_titile_add_counterpart: "Add a new counterpart",
+    transactions_table_text: "Transactions",
+    counterparts_table_text: "Counterparts"
   }
 };
 

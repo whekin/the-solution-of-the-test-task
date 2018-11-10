@@ -2,22 +2,22 @@ import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
-  Redirect
+  Switch
 } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import FilterBtnGroup from './FilterBtnGroup';
-import SortBtnGroup from './SortBtnGroup';
 import TransactionsTable from '../containers/TransactionsTable';
 import CounterpartsTable from '../containers/CounterpartsTable';
-import AddTransactionForm from '../containers/AddTransactionForm';
+import AddTransactionDialog from '../containers/AddTransactionDialog';
+import AddCounterpartDialog from '../containers/AddCounterpartDialog';
 import BtnTogggle from './BtnToggle';
-import Menu from './Menu';
+import Menu from '../containers/Menu';
 import Waves from 'node-waves';
 import { LanguageContext, languages } from '../logic/language-context';
 import colorThemes, { DARK_THEME } from '../logic/colorThemes';
 import { changeColorTheme } from '../logic/changeColorTheme';
 import '../stylesheets/App.css';
+
 const DEFAULT_LANGUAGE_CODE = "ru";
 
 export default class App extends Component {
@@ -67,7 +67,7 @@ export default class App extends Component {
                   }}>
                   <header className="App__header">
                     <div className="App__header_menu">
-                      <Menu />
+                      <Menu location={location}/>
                     </div>
                     <div className="App__header_text">
                       <span>{language.header_text}</span>
@@ -93,24 +93,33 @@ export default class App extends Component {
                         key={location.key}
                         classNames="fade"
                         timeout={1000}>
-                        <Switch location={location}>
-                          <Route
-                            exact path="/"
-                            render={() => (
-                              <div className="wrapper">
-                                <FilterBtnGroup />
-                                <SortBtnGroup />
-                                <TransactionsTable />
-                              </div>
-                            )} />
-                          <Route
-                            path="/add"
-                            render={() => <AddTransactionForm /> } />
-                          <Route
-                            path="/counterparts"
-                            render={() => <CounterpartsTable />} />
-                          <Route render={() => <Redirect to="/" /> } />
-                        </Switch>
+                        <div>
+                          <Switch location={location}>
+                            <Route
+                              path="/transactions"
+                              render={() => (
+                                <div className="wrapper">
+                                  <FilterBtnGroup />
+                                  <TransactionsTable />
+                                </div>
+                              )} />
+                            <Route
+                              path="/counterparts"
+                              render={() => (
+                                <div className="wrapper">
+                                  <CounterpartsTable />
+                                </div>
+                              )} />
+                          </Switch>
+                          <Switch location={location}>
+                            <Route
+                              path="/transactions/add"
+                              render={() => <AddTransactionDialog /> } />
+                            <Route
+                              path="/counterparts/add"
+                              render={() => <AddCounterpartDialog /> } />
+                          </Switch>
+                        </div>
                       </CSSTransition>
                     </TransitionGroup>
                   </main>

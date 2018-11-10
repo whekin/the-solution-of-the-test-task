@@ -59,3 +59,45 @@ th {
   }
 }
 
+form {
+  font-family: var(--app-font-family);
+  font-size: var(--app-font-size);
+  padding: 10px;
+}
+
+form a {
+  margin-left: 20px;
+}
+
+form ul {
+  list-style-type: none;
+  list-style-position: outside;
+}
+
+label {
+  display: inline-block;
+  width: 9em;
+  padding: 10px;
+}
+
+select, input {
+  color: var(--app-text-color);
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  background-color: var(--ease-transparent);
+  padding: 5px 10px;
+}
+
+option {
+  color: #000;
+}
+
+option:hover {
+  background-color: #eee;
+}
+
+.Btn[name = "submit"] {
+  margin-top: 10px;
+}
+

@@ -4,12 +4,15 @@ import {
   DATA_FAIL,
 
   TOGGLE_FILTER_BTN,
-  ACTIVE_SORT_BTN,
+
   ADD_TRANSACTION,
+  ADD_COUNTERPART,
+
   CHANGE_THEME,
-  SET_THEME
+  SET_THEME,
+
+  TOGGLE_DIALOG
 } from '../actions';
-import { sortBtns } from '../components/SortBtnGroup';
 import { DARK_THEME, LIGHT_THEME } from '../logic/colorThemes';
 
 export const initialState = {
@@ -22,11 +25,15 @@ export const initialState = {
     data: []
   },
   activedFilters: [],
-  activedSort: {
-    id: 0,
-    sort: sortBtns[0].sort
-  },
-  currentTheme: localStorage.getItem('theme') || LIGHT_THEME
+  currentTheme: localStorage.getItem('theme') || LIGHT_THEME,
+  dialogsState: {
+    AddTransactionDialog: {
+      isOpen: false
+    },
+    AddCounterpartDialog: {
+      isOpen: false
+    }
+  }
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -63,14 +70,6 @@ const rootReducer = (state = initialState, action) => {
       ...state,
       currentTheme: action.payload
     };
-  case ACTIVE_SORT_BTN:
-    return {
-      ...state,
-      activedSort: {
-        id: action.payload.id,
-        sort: action.payload.sort
-      }
-    };
   case DATA_REQUEST:
     return {
       ...state,
@@ -103,6 +102,24 @@ const rootReducer = (state = initialState, action) => {
         data: state.transactions.data.concat(action.payload)
       },
       activedFilters: []
+    };
+  case ADD_COUNTERPART:
+    return {
+      ...state,
+      counterparts: {
+        ...state.transactions,
+        data: state.counterparts.data.concat(action.payload)
+      }
+    };
+  case TOGGLE_DIALOG:
+    return {
+      ...state,
+      dialogsState: {
+        ...state.dialogsState,
+        [action.payload.dialog]: {
+          isOpen: action.payload.isOpen
+        }
+      }
     };
   default:
     return state;

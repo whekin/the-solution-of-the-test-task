@@ -84,6 +84,7 @@
     "no-console": ["warn", { "allow": ["warn", "error"] }],
     "no-constant-condition": "error",
     "no-control-regex": "error",
+    "no-confusing-arrow": ["error", { "allowParens": true }],
     "no-debugger": "error",
     "no-dupe-args": "error",
     "no-dupe-keys": "error",

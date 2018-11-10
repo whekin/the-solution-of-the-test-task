@@ -1,0 +1,7 @@
+th.havingSort {
+  cursor: pointer;
+}
+
+th.havingSort:hover {
+  background-color: var(--table-tr-even-background-color);
+}

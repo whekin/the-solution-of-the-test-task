@@ -8,8 +8,6 @@ export default connect(state => {
     transactions = transactions.filter(item.filter);
   });
 
-  transactions.sort(state.activedSort.sort);
-
   return {
     transactions: {
       ...state.transactions,

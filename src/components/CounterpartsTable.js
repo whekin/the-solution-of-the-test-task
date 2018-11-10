@@ -1,52 +1,51 @@
-import React, { Component } from 'react';
-import Preloader from './Preloader';
-import { LanguageContext } from '../logic/language-context';
+import React from 'react';
+import SmartTable from './SmartTable';
+import '../stylesheets/CounterpartsTable.css';
 
-export default class CounterpartsTable extends Component {
-  tbodyRender = () => {
-    const { counterparts } = this.props;
+const sorts = [
+  (prev, next) => prev.id - next.id,
+  (prev, next) => prev.name < next.name ? -1 : 1
+];
 
-    if (counterparts.loadingState === "request")
-      return (
-        <tbody>
-          <tr>
-            <td colSpan="2">
-              <Preloader />
-            </td>
+const ths = language => [
+  {
+    name: language.table_id_text,
+    sort: sorts[0]
+  },
+  {
+    name: language.table_name_text,
+    sort: sorts[1]
+  }
+];
+
+const tbody = (language, sort, { counterparts }) => {
+  let { data } = counterparts;
+
+  if (sort)
+    data = data.sort(sort);
+
+  return (
+    <tbody>
+      {
+        data.map(counterpart => (
+          <tr key={counterpart.id}>
+            <td>{counterpart.id}</td>
+            <td>{counterpart.name}</td>
           </tr>
-        </tbody>
-      );
-    else if (counterparts.loadingState === "success")
-      return (
-        <tbody>
-          {counterparts.data.map(counterpart => (
-            <tr key={counterpart.id}>
-              <td>{counterpart.id}</td>
-              <td>{counterpart.name}</td>
-            </tr>
-          ) )
-          }
-        </tbody>
-      );
-    else
-      return <tbody></tbody>;
-  }
-
-  render() {
-    return (
-      <LanguageContext.Consumer>
-        {language => (
-          <table>
-            <thead>
-              <tr>
-                <th>{language.table_id_text}</th>
-                <th>{language.table_name_text}</th>
-              </tr>
-            </thead>
-            {this.tbodyRender()}
-          </table>
-        )}
-      </LanguageContext.Consumer>
-    );
-  }
+        ) )
+      }
+    </tbody>
+  );
 }
+
+const CounterpartsTable = ({ counterparts }) => (
+  <SmartTable
+    ths={ths}
+    defaultSort={sorts[0]}
+    data={{
+      counterparts
+    }}
+    tbody={tbody} />
+);
+
+export default CounterpartsTable;
