@@ -70,12 +70,12 @@ class NavMenu extends Component {
                   },
                   {
                     content: language.dialog_title_add_transaction,
-                    address: "/transactions/add",
+                    address: `${location.pathname}/addTransaction`,
                     icon: <AddIcon />
                   },
                   {
                     content: language.dialog_titile_add_counterpart,
-                    address: "/counterparts/add",
+                    address: `${location.pathname}/addCounterpart`,
                     icon: <AddIcon />
                   }
                 ].map(el => {

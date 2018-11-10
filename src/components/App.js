@@ -113,10 +113,10 @@ export default class App extends Component {
                           </Switch>
                           <Switch location={location}>
                             <Route
-                              path="/transactions/add"
+                              path="/:something/addTransaction"
                               render={() => <AddTransactionDialog /> } />
                             <Route
-                              path="/counterparts/add"
+                              path="/:something/addCounterpart"
                               render={() => <AddCounterpartDialog /> } />
                           </Switch>
                         </div>

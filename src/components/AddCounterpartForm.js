@@ -27,7 +27,7 @@ class AddCounterpartForm extends Component {
       isEditing: false,
       sended: true
     }, () => {
-      this.props.history.push("/counterparts");
+      this.props.history.goBack();
     });
 
     this.props.addCounterpart({

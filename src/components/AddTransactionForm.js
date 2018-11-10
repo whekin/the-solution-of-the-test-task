@@ -57,7 +57,7 @@ class AddTransactionForm extends Component {
     this.setState({
       isEditing: false
     }, () => {
-      this.props.history.push("/transactions");
+      this.props.history.goBack();
     });
   };
 

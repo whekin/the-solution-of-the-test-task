@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import axios from 'axios';
 import SmartTable from './SmartTable';
 
 const sorts = [
@@ -26,7 +27,7 @@ const ths = language => [
   }
 ];
 
-const tbody = (language, sort, { transactions, counterparts }) => {
+const tbody = (language, sort, { transactions, counterparts, currencyRate }) => {
   let { data } = transactions;
 
   if (sort)
@@ -45,7 +46,7 @@ const tbody = (language, sort, { transactions, counterparts }) => {
               {
                 language.name === "ru"
                   ? transaction.value
-                  : `$${(transaction.value / 60).toFixed(2)}`
+                  : `$${(transaction.value / currencyRate.data.Valute.USD.Value).toFixed(2)}`
               }
             </td>
             <td>
@@ -61,15 +62,43 @@ const tbody = (language, sort, { transactions, counterparts }) => {
   );
 }
 
-const TransactionsTable = ({ transactions, counterparts }) => (
-  <SmartTable
-    ths={ths}
-    defaultSort={sorts[0]}
-    data={{
-      transactions,
-      counterparts
-    }}
-    tbody={tbody} />
-);
+class TransactionsTable extends Component {
+  constructor(props) {
+    super(props);
+
+    axios('https://www.cbr-xml-daily.ru/daily_json.js')
+      .then(res => {
+        this.setState({
+          currencyRate: {
+            loadingState: "success",
+            data: res.data
+          }
+        });
+      });
+  }
+
+  state = {
+    currencyRate: {
+      loadingState: "request",
+      data: {}
+    }
+  }
+
+  render() {
+    const { transactions, counterparts } = this.props;
+    const { currencyRate } = this.state;
+    return (
+      <SmartTable
+        ths={ths}
+        defaultSort={sorts[0]}
+        data={{
+          transactions,
+          counterparts,
+          currencyRate
+        }}
+        tbody={tbody} />
+    );
+  }
+}
 
 export default TransactionsTable;
