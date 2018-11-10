@@ -1,6 +1,6 @@
 {
   "name": "test-project",
-  "version": "0.3.0-alpha",
+  "version": "0.3.0-beta",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.4.0",
@@ -26,23 +26,16 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-<<<<<<< HEAD
-=======
   "eslintConfig": {
     "extends": "react-app"
   },
->>>>>>> part3
   "browserslist": [
     ">0.2%",
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-<<<<<<< HEAD
-  ]
-=======
   ],
   "devDependencies": {
     "redux-logger": "^3.0.6"
   }
->>>>>>> part3
 }

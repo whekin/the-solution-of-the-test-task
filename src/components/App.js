@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Switch
+  Switch,
+  Redirect
 } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import FilterBtnGroup from './FilterBtnGroup';
@@ -73,100 +74,6 @@ export default class App extends Component {
             value={languages[this.state.language]}>
             <LanguageContext.Consumer>
               {language => (
-<<<<<<< HEAD
-                <div>
-                  {
-                    showIf(
-                      this.state.isLoadingData && !this.state.isCannotBeLoaded,
-                      <Loading />,
-                      showIf(
-                        this.state.isCannotBeLoaded,
-                        <CannotBeLoaded />
-                      )
-                    )
-                  }
-                  {
-                    showIf(
-                      !this.state.isLoadingData,
-                      <div
-                        className={
-                          `App ${this.state.animation ? "anim-enter" : "anim-exit"}`}
-                        ref={this.appRef}>
-                        <header className="App__header">
-                          <div className="App__header_text">
-                            <span>{language.header_text}</span>
-                          </div>
-                          <div className="App__header_ins_panel">
-                            <BtnTogggle
-                              className="ThemeToggle"
-                              value={language.night_text}
-                              actived={this.state.currentColorTheme === "1"}
-                              onClick={this.handleThemeNightToggle} />
-                            <BtnTogggle
-                              className="LanguageToggle"
-                              value="En"
-                              actived={this.state.language === "en"}
-                              onClick={this.handleLanguageToggle} />
-                          </div>
-                        </header>
-                        <main className="App__main">
-                          <TransitionGroup>
-                            <CSSTransition
-                              key={location.key}
-                              classNames="fade"
-                              timeout={animationDuration}
-                              onEnter={this.handleEnter}
-                              onExit={this.handleExit}>
-                              <Switch location={location}>
-                                <Route
-                                  exact path="/"
-                                  render={() => (
-                                    <div className="wrapper">
-                                      <Link to="/add">{language.link_add_text}</Link>
-                                      <FilterBtnGroup
-                                        handleFilterBtnClick={this.handleFilterBtnClick} />
-                                      <SortBtnGroup
-                                        actived={this.state.activedSortBtn}
-                                        handleSortBtnClick={this.handleSortBtnClick} />
-                                      <TransactionsTable
-                                        update={this.transactionTableUpdate}
-                                        filteredTransactions={this.state.filteredTransactions} />
-                                      {
-                                        showIf(
-                                          !this.state.filteredTransactions.length,
-                                          <div className="warning-text">
-                                            {language.there_is_not_transactions_text}
-                                          </div>
-                                        )
-                                      }
-                                    </div>
-                                  )} />
-                                <Route
-                                  path="/add"
-                                  render={() => (
-                                    <AddTransactionForm
-                                      modalOpen={this.onModalOpen}
-                                      isModalOpen={this.state.isModalOpen}
-                                      lastTransactionId={this.state.transactions.length}
-                                      onSubmit={this.handleAddTransaction} />
-                                  )} />
-                                <Route render={() => <Redirect to="/" /> } />
-                              </Switch>
-                            </CSSTransition>
-                          </TransitionGroup>
-                        </main>
-                        <Modal
-                          onModalClose={this.onModalClose}
-                          isOpen={this.state.isModalOpen}
-                          header={language.notification_text}
-                          message={
-                            `${language.modal_mess_part_1}
-                            №${this.state.transactions.length - 1}
-                            ${language.modal_mess_part_2}`} />
-                      </div>
-                    )
-                  }
-=======
                 <div
                   className="App"
                   ref={app => {
@@ -221,6 +128,10 @@ export default class App extends Component {
                                   <CounterpartsTable />
                                 </div>
                               )} />
+                            <Route
+                              render={() => (
+                                <Redirect to="/transactions" />
+                              )} />
                           </Switch>
                           <Switch location={location}>
                             <Route
@@ -235,7 +146,6 @@ export default class App extends Component {
                     </TransitionGroup>
                   </main>
                   <NightFeaturePresentDialog handler={this.state.handler}/>
->>>>>>> part3
                 </div>
               )}
             </LanguageContext.Consumer>
