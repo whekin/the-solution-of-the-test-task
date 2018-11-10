@@ -1,11 +1,15 @@
-# A transactions and a filters. Part 2.
-## You can run
-Run a two window of the cmd.
+# A transactions and a filters. Part 3.
+## How can I run it?
+Run a three windows of the cmd.
 Open the first window and write in it
 ```
-  npm run start-json-server
+  npm run json-server-one
 ```  
 Then open the second window and write in it
+```
+  npm run json-server-two
+```
+Then open the third window and write in it
 ```
   npm start
 ```
