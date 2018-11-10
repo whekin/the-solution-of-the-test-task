@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import BtnToggle from './BtnToggle';
 
 export default class FilterBtn extends Component {
-
   handleBtnClick = isActive => {
     const { id, filter } = this.props;
-    this.props.onClick(id, filter, isActive);
+    this.props.toggleFilterBtn(id, isActive, filter);
   }
 
   render() {

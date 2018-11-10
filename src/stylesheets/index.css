@@ -5,3 +5,99 @@ body {
   overflow-x: hidden;
   overflow-y: hidden;
 }
+
+a {
+  color: var(--app-color-main);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  filter: brightness(90%);
+}
+
+::selection {
+  color: var(--selection-color);
+  background-color: var(--selection-background-color);
+}
+
+table {
+  border-collapse: collapse;
+}
+
+tr {
+  animation: tr-show 0.4s ease forwards;
+}
+
+td, th {
+  padding: 10px;
+  text-align: left;
+}
+
+tr:nth-child(even) {
+  background-color: var(--table-tr-even-background-color);
+  color: var(--app-text-color);
+}
+
+thead tr {
+  border-bottom: 1px solid var(--app-color-main);
+}
+
+th {
+  color: var(--app-color-main);
+}
+
+@keyframes tr-show {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+form {
+  font-family: var(--app-font-family);
+  font-size: var(--app-font-size);
+  padding: 10px;
+}
+
+form a {
+  margin-left: 20px;
+}
+
+form ul {
+  list-style-type: none;
+  list-style-position: outside;
+}
+
+label {
+  display: inline-block;
+  width: 9em;
+  padding: 10px;
+}
+
+select, input {
+  color: var(--app-text-color);
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  background-color: var(--ease-transparent);
+  padding: 5px 10px;
+}
+
+option {
+  color: #000;
+}
+
+option:hover {
+  background-color: #eee;
+}
+
+.Btn[name = "submit"] {
+  margin-top: 10px;
+}
+

@@ -1,0 +1,16 @@
+{
+  "counterparts": [
+    {
+      "id": 0,
+      "name": "Ivan"
+    },
+    {
+      "id": 1,
+      "name": "Vladimir"
+    },
+    {
+      "id": 2,
+      "name": "Nikolay"
+    }
+  ]
+}

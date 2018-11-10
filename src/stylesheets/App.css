@@ -17,35 +17,6 @@ body {
   box-shadow: 0 5px 150px 30px rgba(0, 0, 0, 0.3);
 }
 
-a {
-  color: var(--app-color-main);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-  filter: brightness(90%);
-}
-
-::selection {
-  color: var(--selection-color);
-  background-color: var(--selection-background-color);
-}
-
-.App.anim-enter {
-  transition-duration: var(--app-animation-duration);
-  transform: scale(0.8);
-  filter: brightness(90%);
-  will-change: transform, filter;
-}
-
-.App.anim-exit {
-  transition-duration: var(--app-animation-duration);
-  transition-property: transform, filter;
-  transform: scale(1);
-  filter: brightness(100%);
-}
-
 .App__header {
   height: var(--app-header-height);
   display: flex;
@@ -56,13 +27,17 @@ a:hover {
   margin-bottom: 20px;
 }
 
+.App__header_menu {
+  margin-left: 10px;
+}
+
 .App__header_text {
   flex: 0 1 100%;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   color: white;
-  font-size: 2rem;
-  font-weight: 300;
+  font-size: 1.5rem;
+  font-weight: 500;
   padding-left: 20px;
   padding-right: 20px;
 }
@@ -85,120 +60,39 @@ a:hover {
   color: #ef5350;
 }
 
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-flow: column;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100vw;
-  height: 100vh;
-}
-
-.loading__preload {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 5px solid var(--app-color-main);
-  animation: preload 1s ease infinite;
-}
-
-.loading__preload::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 50%;
-  border: 5px solid var(--app-color-main);
-  animation: preload-before 1s linear infinite;
-}
-
-.loading__text {
-  margin-top: 12px;
-  font-family: var(--app-font-family);
-}
-
-.cannotBeLoaded {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-flow: column;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100vw;
-  height: 100vh;
-  animation: cannotBeLoaded 3s ease forwards;
-}
-
-.cannotBeLoaded__text {
-  color: white;
-  font-family: var(--app-font-family);
-  font-size: 20px;
-  padding: 0 20px;
-}
-
 .fade-enter {
-  transform: translateX(100vw);
   opacity: 0;
 }
 
-.wrapper.fade-enter {
-  transform: translateX(-100vw);
-}
-
 .fade-enter-active {
-  transform: translateX(0);
   opacity: 1;
-  transition-property: transform, opacity;
+  transition-property: opacity;
+  transition-delay: 500;
   transition-duration: var(--fade-animation-duration);
   transition-timing-function: ease;
-  transition-delay: var(--app-animation-duration);
-}
-
-.wrapper.fade-enter-active {
-  transform: translateX(0);
-  opacity: 1;
-  transition-property: transform, opacity;
-  transition-duration: var(--fade-animation-duration);
-  transition-timing-function: ease;
-  transition-delay: var(--app-animation-duration);
 }
 
 .fade-enter-done {
-  transform: translateX(0);
   opacity: 1;
 }
 
 .fade-exit {
-  transform: translateX(0);
   opacity: 1;
 }
 
 .fade-exit-active {
-  transform: translateX(-100vw);
   opacity: 0;
-  transition-property: transform, opacity;
-  transition-duration: var(--fade-animation-duration);
+  transition-property: opacity;
+  transition-duration: calc(var(--fade-animation-duration) / 2);
   transition-timing-function: ease;
-  transition-delay: var(--app-animation-duration);
-}
-
-.AddTransactionForm.fade-exit-active {
-  transform: translateX(100vw)
 }
 
 .fade-exit-done {
-  tranform: translateX(-100vw);
   opacity: 0;
+}
+
+a.nav_link:hover {
+  text-decoration: none;
 }
 
 @media only screen and (max-width: 550px) {
@@ -209,9 +103,11 @@ a:hover {
 
 @media only screen and (max-width: 800px) {
   .App__header_ins_panel {
-    position: absolute;
+    position: fixed;
     bottom: 10px;
     right: 20px;
+    z-index: 1000;
+    padding: 0;
   }
 }
 
@@ -224,39 +120,5 @@ a:hover {
   to {
     opacity: 1;
     transform: rotateY(0) translateZ(0);
-  }
-}
-
-@keyframes cannotBeLoaded {
-  from {
-    background-color: #fafafa;
-  }
-
-  to {
-    background-color: #f44336;
-  }
-}
-
-@keyframes preload {
-  from {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(0.5);
-  }
-}
-
-@keyframes preload-before {
-  from {
-    transform: scale(0.5);
-  }
-
-  50% {
-    transform: scale(1);
-  }
-
-  to {
-    transform: scale(0.5);
   }
 }

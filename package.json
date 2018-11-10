@@ -1,30 +1,48 @@
 {
-  "name": "test_task",
-  "version": "0.2.2",
+  "name": "test-project",
+  "version": "0.3.0-alpha",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^3.4.0",
+    "@material-ui/icons": "^3.0.1",
     "axios": "^0.18.0",
     "json-server": "^0.14.0",
     "node-waves": "^0.7.6",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-redux": "^5.0.7",
+    "normalize.css": "^8.0.0",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "react-redux": "^5.1.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.5",
+    "react-scripts": "2.1.0",
     "react-transition-group": "^2.5.0",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start-json-server": "json-server --watch --port 3001 src/data/transactions.json",
+    "json-server-one": "json-server --watch --port 3001 --delay 2000 src/data/transactions.json",
+    "json-server-two": "json-server --watch --port 3002 --delay 2000 src/data/counterparts.json",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+<<<<<<< HEAD
+=======
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+>>>>>>> part3
   "browserslist": [
     ">0.2%",
     "not dead",
     "not ie <= 11",
     "not op_mini all"
+<<<<<<< HEAD
   ]
+=======
+  ],
+  "devDependencies": {
+    "redux-logger": "^3.0.6"
+  }
+>>>>>>> part3
 }
