@@ -2,17 +2,17 @@ import { connect } from 'react-redux';
 import TransacitonsTable from '../components/TransactionsTable';
 
 export default connect(state => {
-  let transactions = state.transactions.data.slice();
+  let transactions = state.loadingData.transactions.data.slice();
 
-  state.activedFilters.forEach(item => {
+  state.filterBtns.activedFilters.forEach(item => {
     transactions = transactions.filter(item.filter);
   });
 
   return {
     transactions: {
-      ...state.transactions,
+      ...state.loadingData.transactions,
       data: transactions
     },
-    counterparts: state.counterparts
+    counterparts: state.loadingData.counterparts
   };
 })(TransacitonsTable);

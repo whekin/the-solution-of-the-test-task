@@ -3,8 +3,8 @@ import AddTransactionForm from '../components/AddTransactionForm';
 import { addTransaction } from '../actions';
 
 export default connect(state => ({
-  lastTransactionId: state.transactions.data.length,
-  counterparts: state.counterparts
+  lastTransactionId: state.loadingData.transactions.data.length,
+  counterparts: state.loadingData.counterparts
 }), dispatch => ({
   addTransaction: (...args) => {
     dispatch(addTransaction(...args) );

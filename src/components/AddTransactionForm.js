@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Prompt, withRouter } from 'react-router-dom';
+import { Prompt } from 'react-router-dom';
 import Btn from './Btn';
 import { LanguageContext } from '../logic/language-context';
 
@@ -50,8 +50,6 @@ class AddTransactionForm extends Component {
 
     this.setState({
       isEditing: false
-    }, () => {
-      this.props.history.goBack();
     });
   };
 
@@ -141,4 +139,4 @@ class AddTransactionForm extends Component {
   }
 }
 
-export default withRouter(AddTransactionForm);
+export default AddTransactionForm;

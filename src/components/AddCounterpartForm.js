@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Prompt, withRouter } from 'react-router-dom';
+import { Prompt } from 'react-router-dom';
 import Btn from './Btn';
 import { LanguageContext } from '../logic/language-context';
 
@@ -26,8 +26,6 @@ class AddCounterpartForm extends Component {
     this.setState({
       isEditing: false,
       sended: true
-    }, () => {
-      this.props.history.goBack();
     });
 
     this.props.addCounterpart({
@@ -73,4 +71,4 @@ class AddCounterpartForm extends Component {
   }
 }
 
-export default withRouter(AddCounterpartForm);
+export default AddCounterpartForm;

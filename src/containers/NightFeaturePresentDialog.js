@@ -3,7 +3,7 @@ import NightFeaturePresentDialog from '../components/NightFeaturePresentDialog';
 import { toggleDialog } from '../actions';
 
 export default connect(state => ({
-  isOpen: state.dialogsState.NightFeaturePresentDialog.isOpen
+  isOpen: state.dialogs.dialogsState.NightFeaturePresentDialog.isOpen
 }), dispatch => ({
   toggleDialog: isOpen => {
     dispatch(toggleDialog("NightFeaturePresentDialog", isOpen) );

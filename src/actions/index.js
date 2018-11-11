@@ -1,18 +1,19 @@
 import axios from 'axios';
+import {
+  DATA_REQUEST,
+  DATA_SUCCESS,
+  DATA_FAIL,
 
-export const TOGGLE_FILTER_BTN = 'TOGGLE_FILTER_BTN';
+  ADD_TRANSACTION,
+  ADD_COUNTERPART,
 
-export const DATA_REQUEST = 'DATA_REQUEST';
-export const DATA_SUCCESS = 'DATA_SUCCESS';
-export const DATA_FAIL = 'DATA_FAIL';
+  TOGGLE_FILTER_BTN,
 
-export const ADD_TRANSACTION = 'ADD_TRANSACTION';
-export const ADD_COUNTERPART = 'ADD_COUNTERPART';
+  TOGGLE_THEME,
+  SET_THEME,
 
-export const TOGGLE_THEME = 'TOGGLE_THEME';
-export const SET_THEME = 'SET_THEME';
-
-export const TOGGLE_DIALOG = 'TOGGLE_DIALOG';
+  TOGGLE_DIALOG
+} from './actionTypes';
 
 export const getData = (to, address) => dispatch => {
   dispatch({
