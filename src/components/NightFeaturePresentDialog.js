@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import {
+  Dialog, DialogTitle, DialogContent,
+  DialogActions, DialogContentText, Button
+} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 import nightThemeScreenshot from '../images/night_theme_screenshot.png';
 
-export default class NightFeaturePresentDialog extends Component {
+const styles = theme => ({
+  li: {
+    color: theme.palette.primary.main
+  }
+});
+
+class NightFeaturePresentDialog extends Component {
   handleClose = () => {
     this.props.toggleDialog(false);
   };
@@ -33,31 +38,23 @@ export default class NightFeaturePresentDialog extends Component {
           <center>
             <img alt="" src={nightThemeScreenshot} width="70%" />
           </center>
-          <DialogContentText>
-            You can either pay $0.99 and get the nice theme or hack this site. For that:
-          </DialogContentText>
           <ul>
-            <li>
-              <DialogContentText>
-                Open broser developer tools
-              </DialogContentText>
-            </li>
-            <li>
-              <DialogContentText>
-                Click on tab &quot;Console&quot;
-              </DialogContentText>
-            </li>
-            <li>
-              <DialogContentText>
-                Type down: <code>localStorage.setItem(&quot;isActiveFeatureNightTheme&quot;, true);</code>
-              </DialogContentText>
-            </li>
-            <li>
-              <DialogContentText>
-                Update the page
-              </DialogContentText>
-            </li>
+            {[
+              "You can either pay $0.99 and get the nice theme or hack this site. For that:",
+              "Open broser developer tools",
+              "Click on tab &quot;Console&quot;",
+              "Type down: <code>localStorage.setItem(&quot;isActiveFeatureNightTheme&quot;, true);</code>",
+              "Update the page"
+            ].map( (text, i) => (
+              <li key={i} className={this.props.classes.li}>
+                <DialogContentText>
+                  {text}
+                </DialogContentText>
+              </li>
+            ) )
+            }
           </ul>
+
         </DialogContent>
         <DialogActions>
           <Button
@@ -77,3 +74,5 @@ export default class NightFeaturePresentDialog extends Component {
     );
   }
 }
+
+export default withStyles(styles)(NightFeaturePresentDialog);

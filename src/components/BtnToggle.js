@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
-import '../stylesheets/BtnToggle.css';
+import Btn from '@material-ui/core/Button';
 
-export default class FilterBtn extends Component {
+class BtnToggle extends Component {
   state = { isActive: this.props.actived };
+
+  static defaultProps = {
+    color: "primary",
+    variant: "text"
+  }
 
   handleBtnClick = () => {
     this.props.onClick(!this.state.isActive);
@@ -20,14 +25,14 @@ export default class FilterBtn extends Component {
     const { value } = this.props;
 
     return (
-      <button
-        className={
-          isActive
-            ? "btn-toggle waves-effect waves-light active"
-            : "btn-toggle waves-effect waves-light"}
+      <Btn
+        color={this.props.color}
+        variant={isActive ? "contained" : this.props.variant}
         onClick={this.handleBtnClick}>
         {value}
-      </button>
+      </Btn>
     );
   }
 }
+
+export default BtnToggle;

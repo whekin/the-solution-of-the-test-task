@@ -1,6 +1,15 @@
 .FilterBtnGroup {
-  margin-bottom: 10px;
+  padding-bottom: 15px;
   overflow-x: auto;
   width: calc(100vw - 40px);
   white-space: nowrap;
+}
+
+.FilterBtnGroup button {
+  margin: 0 5px 0 5px;
+}
+
+.FilterBtnGroup button:last-child,
+.FilterBtnGroup button:first-child {
+  margin: none;
 }

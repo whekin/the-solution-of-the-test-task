@@ -13,14 +13,11 @@ import LensIcon from '@material-ui/icons/Lens';
 import { withStyles } from '@material-ui/core/styles';
 import { LanguageContext } from '../logic/language-context';
 
-const styles = {
-  primary: {
-    color: "#03a9f4"
-  },
-  secondary: {
-    color: "white"
+const styles = theme => ({
+  activeColor: {
+    color: theme.palette.primary.light
   }
-};
+});
 
 class NavMenu extends Component {
   state = {
@@ -42,9 +39,7 @@ class NavMenu extends Component {
             <IconButton
               aria-label="Menu"
               onClick={this.toggleDrawer(true)}
-              classes={{
-                root: classes.secondary
-              }}>
+              color="secondary">
               <MenuIcon />
             </IconButton>
             <SwipeableDrawer
@@ -80,22 +75,26 @@ class NavMenu extends Component {
                   }
                 ].map(el => {
                   const isActive = location.pathname === el.address;
+
                   return (
-                    <NavLink
+                    <div
                       key={el.content}
-                      to={el.address}
-                      className="nav_link">
-                      <ListItem button >
-                        <ListItemIcon classes={{
-                          root: isActive ? classes.primary : null
-                        }}>
-                          {el.icon}
-                        </ListItemIcon>
-                        <ListItemText classes={{
-                          primary: isActive ? classes.primary : null
-                        }} primary={el.content} />
-                      </ListItem>
-                    </NavLink>
+                      className={classes.activeColor}>
+                      <NavLink
+                        to={el.address}
+                        className="nav_link">
+                        <ListItem button>
+                          <ListItemIcon classes={{
+                            root: isActive ? classes.activeColor : null
+                          }}>
+                            {el.icon}
+                          </ListItemIcon>
+                          <ListItemText classes={{
+                            primary: isActive ? classes.activeColor : null
+                          }} primary={el.content} />
+                        </ListItem>
+                      </NavLink>
+                    </div>
                   );
                 })}
               </List>

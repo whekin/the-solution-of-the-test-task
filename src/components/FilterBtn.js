@@ -11,6 +11,7 @@ export default class FilterBtn extends Component {
     return (
       <BtnToggle
         {...this.props}
+        variant="outlined"
         onClick={this.handleBtnClick} />
     );
   }

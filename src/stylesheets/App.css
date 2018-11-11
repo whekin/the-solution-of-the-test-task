@@ -1,5 +1,3 @@
-@import url(var.css);
-
 body {
   perspective: var(--app-perspective);
 }
@@ -50,6 +48,9 @@ body {
   align-items: center;
 }
 
+.App__header_ins_panel button {
+  margin: 0 5px 0 5px;
+}
 .wrapper {
   padding-left: 20px;
   position: absolute;
@@ -91,9 +92,18 @@ body {
   opacity: 0;
 }
 
+a.nav_link {
+  color: inherit;
+}
+
 a.nav_link:hover {
   text-decoration: none;
 }
+
+.Btn[name = "submit"] {
+  margin-top: 10px;
+}
+
 
 @media only screen and (max-width: 550px) {
   .App__header_text {
