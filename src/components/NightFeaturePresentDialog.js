@@ -15,7 +15,7 @@ export default class NightFeaturePresentDialog extends Component {
   onAgree = () => {
     this.handleClose();
 
-    this.props.handler.open({
+    this.props.stripeHandler.open({
       name: 'Paid feature',
       description: 'Active the feature night theme',
       amount: 99
@@ -60,12 +60,16 @@ export default class NightFeaturePresentDialog extends Component {
           </ul>
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.handleClose} color="primary">
+          <Button
+            onClick={this.handleClose}
+            color="primary">
             Disagree
           </Button>
           <Button
+            variant="contained"
             onClick={this.onAgree}
-            color="primary" autoFocus>
+            color="primary"
+            autoFocus>
             Agree
           </Button>
         </DialogActions>

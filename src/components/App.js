@@ -38,7 +38,7 @@ export default class App extends Component {
       : DEFAULT_LANGUAGE_CODE,
     anchorEl: null,
     isActiveFeatureNightTheme: localStorage.getItem("isActiveFeatureNightTheme") || false,
-    handler: window.StripeCheckout.configure({
+    stripeHandler: window.StripeCheckout.configure({
       key: 'pk_test_s2ySk94pjLiU9giOAhAhAvOT',
       image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
       locale: 'auto',
@@ -128,9 +128,7 @@ export default class App extends Component {
                                 </div>
                               )} />
                             <Route
-                              render={() => (
-                                <Redirect to="/transactions" />
-                              )} />
+                              render={() => <Redirect to="/transactions" /> } />
                           </Switch>
                           <Switch location={location}>
                             <Route
@@ -144,7 +142,7 @@ export default class App extends Component {
                       </CSSTransition>
                     </TransitionGroup>
                   </main>
-                  <NightFeaturePresentDialog handler={this.state.handler}/>
+                  <NightFeaturePresentDialog stripeHandler={this.state.stripeHandler}/>
                 </div>
               )}
             </LanguageContext.Consumer>
