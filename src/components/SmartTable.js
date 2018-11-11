@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { LanguageContext } from '../logic/language-context';
 import Preloader from './Preloader';
+import { Tooltip } from '@material-ui/core';
 import '../stylesheets/SmartTable.css';
 
 export default class SmartTable extends Component {
@@ -36,18 +37,20 @@ export default class SmartTable extends Component {
                       const isHavingSort = th.sort !== null;
 
                       return (
-                        <th
-                          className={isHavingSort ? "havingSort" : ""}
+                        <Tooltip
                           key={th.name}
-                          title={isHavingSort ? language.sort_text : ""}
-                          onClick={() => {
-                            if (th.sort)
-                              this.setState({
-                                activeSort: th.sort
-                              });
-                          }}>
-                          {`${th.name} ${isActiveSort ? "▼" : ""}`}
-                        </th>
+                          title={isHavingSort ? language.sort_text : ""}>
+                          <th
+                            className={isHavingSort ? "havingSort" : ""}
+                            onClick={() => {
+                              if (th.sort)
+                                this.setState({
+                                  activeSort: th.sort
+                                });
+                            }}>
+                            {`${th.name} ${isActiveSort ? "▼" : ""}`}
+                          </th>
+                        </Tooltip>
                       );
                     })
                 }
