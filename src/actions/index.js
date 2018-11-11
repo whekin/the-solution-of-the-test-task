@@ -9,7 +9,7 @@ export const DATA_FAIL = 'DATA_FAIL';
 export const ADD_TRANSACTION = 'ADD_TRANSACTION';
 export const ADD_COUNTERPART = 'ADD_COUNTERPART';
 
-export const CHANGE_THEME = 'CHANGE_THEME';
+export const TOGGLE_THEME = 'TOGGLE_THEME';
 export const SET_THEME = 'SET_THEME';
 
 export const TOGGLE_DIALOG = 'TOGGLE_DIALOG';
@@ -62,8 +62,8 @@ export const toggleFilterBtn = (id, isActive, filter) => ({
   }
 });
 
-export const changeTheme = () => ({
-  type: CHANGE_THEME
+export const toggleTheme = () => ({
+  type: TOGGLE_THEME
 });
 
 export const setTheme = theme => ({

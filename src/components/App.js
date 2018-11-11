@@ -17,7 +17,7 @@ import Menu from '../containers/Menu';
 import Waves from 'node-waves';
 import { LanguageContext, languages } from '../logic/language-context';
 import colorThemes, { DARK_THEME } from '../logic/colorThemes';
-import { changeColorTheme } from '../logic/changeColorTheme';
+import { setColorTheme } from '../logic/setColorTheme';
 import '../stylesheets/App.css';
 
 const DEFAULT_LANGUAGE_CODE = "ru";
@@ -51,6 +51,8 @@ export default class App extends Component {
         });
 
         localStorage.setItem("isActiveFeatureNightTheme", true);
+
+        this.props.toggleTheme();
       }
     })
   };
@@ -78,7 +80,7 @@ export default class App extends Component {
                   className="App"
                   ref={app => {
                     if (app)
-                      changeColorTheme(app, colorThemes[this.props.currentTheme]);
+                      setColorTheme(app, colorThemes[this.props.currentTheme]);
                   }}>
                   <header className="App__header">
                     <div className="App__header_menu">
@@ -94,7 +96,7 @@ export default class App extends Component {
                         actived={this.props.currentTheme === DARK_THEME}
                         onClick={() => {
                           if (this.state.isActiveFeatureNightTheme)
-                            this.props.changeTheme();
+                            this.props.toggleTheme();
                           else
                             this.props.toggleDialog("NightFeaturePresentDialog", true);
                         }} />

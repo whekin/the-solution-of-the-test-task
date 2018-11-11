@@ -5,7 +5,6 @@ export const languages = {
     name: "ru",
     loading_text: "Загрузка...",
     header_text: "Транзакции и Фильтры. Часть 3",
-    cannotBeLoaded_text: "Приложение не может быть загруженно, так как не запущен json-server. Запустите сервер и обновите страницу.",
     night_text: "Ночь",
     link_add_text: "Добавить новую транзакцию",
     there_is_not_transactions_text: "Транзакций, подходящих под выбранные фильтры — нет!",
@@ -43,8 +42,7 @@ export const languages = {
   en: {
     name: "en",
     loading_text: "Loading...",
-    header_text: "Transations and Filters (part 3)",
-    cannotBeLoaded_text: "The app is cannot be loaded, becouse the json-server is not working now. Please, run the json-server and update the page.",
+    header_text: "Transations & Filters 3",
     night_text: "It's Night",
     link_add_text: "Add a new transaction",
     there_is_not_transactions_text: "There is not some transactions that suitable for the actived filters.",

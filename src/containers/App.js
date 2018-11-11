@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import App from '../components/App';
-import { getData, changeTheme, setTheme, toggleDialog } from '../actions';
+import { getData, toggleTheme, setTheme, toggleDialog } from '../actions';
 
 export default connect(state => ({
   transactions: state.transactions,
@@ -10,8 +10,8 @@ export default connect(state => ({
   getData: (...args) => {
     dispatch(getData(...args) );
   },
-  changeTheme: () => {
-    dispatch(changeTheme() );
+  toggleTheme: () => {
+    dispatch(toggleTheme() );
   },
   setTheme: theme => {
     dispatch(setTheme(theme) );

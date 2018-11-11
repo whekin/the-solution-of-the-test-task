@@ -20,7 +20,7 @@
  * @param {string} theme.selectionColor
  * @param {string} theme.selectionBackgroundColor
  */
-export const changeColorTheme = (app, theme) => {
+export const setColorTheme = (app, theme) => {
   app.style.setProperty("--app-color-main", theme.mainColor);
   app.style.setProperty("--app-background-color", theme.appBackgroundColor);
   app.style.setProperty("--app-text-color", theme.appTextColor);

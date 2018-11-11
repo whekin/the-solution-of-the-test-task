@@ -8,7 +8,7 @@ import {
   ADD_TRANSACTION,
   ADD_COUNTERPART,
 
-  CHANGE_THEME,
+  TOGGLE_THEME,
   SET_THEME,
 
   TOGGLE_DIALOG
@@ -58,7 +58,7 @@ const rootReducer = (state = initialState, action) => {
     };
   }
 
-  case CHANGE_THEME: {
+  case TOGGLE_THEME: {
     const theme = state.currentTheme === LIGHT_THEME ? DARK_THEME : LIGHT_THEME;
 
     localStorage.setItem('theme', theme);
