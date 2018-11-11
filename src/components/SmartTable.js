@@ -24,6 +24,47 @@ export default class SmartTable extends Component {
     return count === loadedCount;
   }
 
+  isDataCantBeLoaded(data) {
+    let count = 0;
+
+    Object.keys(data).forEach(key => {
+      if (data[key].loadingState === "fail")
+        count += 1;
+    });
+
+    return count > 0;
+  }
+
+  tbodyTemplate = language => {
+    if (this.isDataLoaded(this.props.data) )
+      return this.props.tbody({
+        language,
+        sort: this.state.activeSort,
+        isReverse: this.state.isReverse,
+        data: this.props.data
+      });
+    else if (this.isDataCantBeLoaded(this.props.data) )
+      return (
+        <tbody>
+          <tr >
+            <td colSpan="4">
+              <center>No data was loaded...</center>
+            </td>
+          </tr>
+        </tbody>
+      );
+    else
+      return (
+        <tbody>
+          <tr>
+            <td colSpan="4">
+              <Preloader />
+            </td>
+          </tr>
+        </tbody>
+      );
+  };
+
   render() {
     return (
       <LanguageContext.Consumer>
@@ -69,20 +110,7 @@ export default class SmartTable extends Component {
               </tr>
             </thead>
             {
-              this.isDataLoaded(this.props.data) ?
-                this.props.tbody({
-                  language,
-                  sort: this.state.activeSort,
-                  isReverse: this.state.isReverse,
-                  data: this.props.data
-                }) :
-                <tbody>
-                  <tr colSpan="4">
-                    <td>
-                      <Preloader />
-                    </td>
-                  </tr>
-                </tbody>
+              this.tbodyTemplate(language)
             }
           </table>
         )}
