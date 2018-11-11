@@ -7,6 +7,7 @@ import { LanguageContext } from '../logic/language-context';
 export default class AddTransactionDialog extends Component {
   handleClose = () => {
     this.props.toggleDialog(false);
+    this.props.history.goBack();
   };
 
   componentDidMount() {

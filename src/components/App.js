@@ -68,7 +68,7 @@ export default class App extends Component {
   render() {
     return (
       <Router>
-        <Route render={({ location }) => (
+        <Route render={({ location, history }) => (
           <LanguageContext.Provider
             value={languages[this.state.language]}>
             <LanguageContext.Consumer>
@@ -135,10 +135,10 @@ export default class App extends Component {
                           <Switch location={location}>
                             <Route
                               path="/:something/addTransaction"
-                              render={() => <AddTransactionDialog /> } />
+                              render={() => <AddTransactionDialog history={history} /> } />
                             <Route
                               path="/:something/addCounterpart"
-                              render={() => <AddCounterpartDialog /> } />
+                              render={() => <AddCounterpartDialog history={history} /> } />
                           </Switch>
                         </div>
                       </CSSTransition>
