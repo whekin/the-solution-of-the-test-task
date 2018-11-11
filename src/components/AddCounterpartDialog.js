@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Prompt } from 'react-router-dom';
 import { LanguageContext } from '../logic/language-context';
-import { Dialog, DialogTitle, DialogActions, Button, Input, InputLabel } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogActions, Button, Input, InputLabel, TextField } from '@material-ui/core';
 
 export default class AddCounterpartDialog extends Component {
   state = {
@@ -57,9 +57,8 @@ export default class AddCounterpartDialog extends Component {
                 message={language.sure_leave_page_text} />
               <ul>
                 <li>
-                  <InputLabel>{language.name_text}</InputLabel>
-                  <Input
-                    type="text"
+                  <TextField
+                    label="Name"
                     name="name"
                     value={name}
                     minLength="3"
