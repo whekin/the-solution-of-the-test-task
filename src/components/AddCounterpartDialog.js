@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Prompt } from 'react-router-dom';
 import { LanguageContext } from '../logic/language-context';
-import { Dialog, DialogTitle, DialogActions, Button, Input, InputLabel, TextField } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogActions, Button, TextField } from '@material-ui/core';
 
 export default class AddCounterpartDialog extends Component {
   state = {

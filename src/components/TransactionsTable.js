@@ -27,16 +27,20 @@ const ths = language => [
   }
 ];
 
-const tbody = (language, sort, { transactions, counterparts, currencyRate }) => {
-  let { data } = transactions;
+const tbody = ({ language, sort, isReverse, data }) => {
+  const { transactions, counterparts, currencyRate } = data;
+
+  let { data: transactionData } = transactions;
 
   if (sort)
-    data = transactions.data.sort(sort);
+    transactionData = transactionData.sort(sort);
+  if (isReverse)
+    transactionData = transactionData.reverse();
 
   return (
     <tbody>
       {
-        data.map(transaction => (
+        transactionData.map(transaction => (
           <tr key={transaction.id}>
             <td>
               {transaction.id}

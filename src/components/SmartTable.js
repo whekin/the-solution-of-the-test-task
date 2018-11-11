@@ -6,7 +6,8 @@ import '../stylesheets/SmartTable.css';
 
 export default class SmartTable extends Component {
   state = {
-    activeSort: this.props.defaultSort
+    activeSort: this.props.defaultSort,
+    isReverse: false
   }
 
   isDataLoaded(data) {
@@ -43,12 +44,23 @@ export default class SmartTable extends Component {
                           <th
                             className={isHavingSort ? "havingSort" : ""}
                             onClick={() => {
+                              if (th.sort === this.state.activeSort)
+                                this.setState(state => ({
+                                  isReverse: !state.isReverse
+                                }) );
+                              else if (this.state.isReverse)
+                                this.setState({
+                                  isReverse: false
+                                });
+
                               if (th.sort)
                                 this.setState({
                                   activeSort: th.sort
                                 });
                             }}>
-                            {`${th.name} ${isActiveSort ? "▼" : ""}`}
+                            {`${th.name} ${isActiveSort
+                              ? this.state.isReverse ? "▼" : "▲"
+                              : ""}`}
                           </th>
                         </Tooltip>
                       );
@@ -58,7 +70,12 @@ export default class SmartTable extends Component {
             </thead>
             {
               this.isDataLoaded(this.props.data) ?
-                this.props.tbody(language, this.state.activeSort, this.props.data) :
+                this.props.tbody({
+                  language,
+                  sort: this.state.activeSort,
+                  isReverse: this.state.isReverse,
+                  data: this.props.data
+                }) :
                 <tbody>
                   <tr colSpan="4">
                     <td>

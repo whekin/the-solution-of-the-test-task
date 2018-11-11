@@ -4,7 +4,11 @@ import '../stylesheets/CounterpartsTable.css';
 
 const sorts = [
   (prev, next) => prev.id - next.id,
-  (prev, next) => prev.name < next.name ? -1 : 1
+  (prev, next) => {
+    if (prev.name < next.name)
+      return -1;
+    return 1;
+  }
 ];
 
 const ths = language => [
@@ -18,16 +22,18 @@ const ths = language => [
   }
 ];
 
-const tbody = (language, sort, { counterparts }) => {
-  let { data } = counterparts;
+const tbody = ({ sort, isReverse, data }) => {
+  let { data: counterpartData } = data.counterparts;
 
   if (sort)
-    data = data.sort(sort);
+    counterpartData = counterpartData.sort(sort);
+  if (isReverse)
+    counterpartData = counterpartData.reverse();
 
   return (
     <tbody>
       {
-        data.map(counterpart => (
+        counterpartData.map(counterpart => (
           <tr key={counterpart.id}>
             <td>{counterpart.id}</td>
             <td>{counterpart.name}</td>
@@ -36,7 +42,7 @@ const tbody = (language, sort, { counterparts }) => {
       }
     </tbody>
   );
-}
+};
 
 const CounterpartsTable = ({ counterparts }) => (
   <SmartTable
