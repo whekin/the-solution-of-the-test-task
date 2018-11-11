@@ -14,7 +14,6 @@ import AddCounterpartDialog from '../containers/AddCounterpartDialog';
 import BtnTogggle from './BtnToggle';
 import NightFeaturePresentDialog from '../containers/NightFeaturePresentDialog';
 import Menu from '../containers/Menu';
-import Waves from 'node-waves';
 import { LanguageContext, languages } from '../logic/language-context';
 import colorThemes, { DARK_THEME } from '../logic/colorThemes';
 import { setColorTheme } from '../logic/setColorTheme';
@@ -31,8 +30,6 @@ export default class App extends Component {
 
     getData('transactions', 'http://localhost:3001/transactions');
     getData('counterparts', 'http://localhost:3002/counterparts');
-
-    Waves.init({ duration: 1000 });
   }
 
   state = {

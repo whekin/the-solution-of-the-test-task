@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Prompt, withRouter } from 'react-router-dom';
 import Btn from './Btn';
-import Waves from 'node-waves';
 import { LanguageContext } from '../logic/language-context';
 
 const now = new Date();
@@ -18,11 +17,6 @@ const theDate = `${nowWithZero.year}-${nowWithZero.month}-${nowWithZero.day}`;
 const theTime = `${nowWithZero.hour}:${nowWithZero.minute}`;
 
 class AddTransactionForm extends Component {
-  constructor(props) {
-    super(props);
-
-    Waves.init({ duration: 1000 });
-  }
 
   state = {
     isEditing: false,
