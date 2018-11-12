@@ -11,7 +11,7 @@ import 'normalize.css';
 import './stylesheets/index.css';
 
 const middleware = [thunk];
-if (process.env.NODE_DEV !== 'prodation')
+if (true)
   middleware.push(logger);
 
 const store = createStore(reducer, applyMiddleware(...middleware) );

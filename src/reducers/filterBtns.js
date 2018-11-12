@@ -1,5 +1,6 @@
 import {
-  TOGGLE_FILTER_BTN
+  TOGGLE_FILTER_BTN,
+  CLEAR_FILTERS
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -24,7 +25,11 @@ export const filterBtns = (state = initialState, action) => {
       activedFilters
     };
   }
-
+  case CLEAR_FILTERS:
+    return {
+      ...state,
+      activedFilters: []
+    };
   default:
     return state;
   }

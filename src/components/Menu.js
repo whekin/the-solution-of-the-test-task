@@ -62,16 +62,6 @@ class NavMenu extends Component {
                     content: language.counterparts_table_text,
                     address: "/counterparts",
                     icon: <LensIcon />
-                  },
-                  {
-                    content: language.dialog_title_add_transaction,
-                    address: `${location.pathname}/addTransaction`,
-                    icon: <AddIcon />
-                  },
-                  {
-                    content: language.dialog_titile_add_counterpart,
-                    address: `${location.pathname}/addCounterpart`,
-                    icon: <AddIcon />
                   }
                 ].map(el => {
                   const isActive = location.pathname === el.address;
@@ -97,6 +87,32 @@ class NavMenu extends Component {
                     </div>
                   );
                 })}
+                {
+                  [
+                    {
+                      content: language.dialog_title_add_transaction,
+                      name: "AddTransactionDialog",
+                      icon: <AddIcon />
+                    },
+                    {
+                      content: language.dialog_titile_add_counterpart,
+                      name: "AddCounterpartDialog",
+                      icon: <AddIcon />
+                    }
+                  ].map(el => (
+                    <ListItem
+                      key={el.content}
+                      button
+                      onClick={() => {
+                        this.props.toggleDialog(el.name, true);
+                      }}>
+                      <ListItemIcon>
+                        {el.icon}
+                      </ListItemIcon>
+                      <ListItemText primary={el.content} />
+                    </ListItem>
+                  ) )
+                }
               </List>
             </SwipeableDrawer>
           </div>

@@ -8,6 +8,7 @@ import {
   ADD_COUNTERPART,
 
   TOGGLE_FILTER_BTN,
+  CLEAR_FILTERS,
 
   TOGGLE_THEME,
   SET_THEME,
@@ -61,6 +62,10 @@ export const toggleFilterBtn = (id, isActive, filter) => ({
     isActive,
     filter
   }
+});
+
+export const clearFilters = () => ({
+  type: CLEAR_FILTERS
 });
 
 export const toggleTheme = () => ({

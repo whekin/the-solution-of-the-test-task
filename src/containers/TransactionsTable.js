@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import TransacitonsTable from '../components/TransactionsTable';
+import { clearFilters } from '../actions';
 
 export default connect(state => {
   let transactions = state.loadingData.transactions.data.slice();
@@ -15,4 +16,8 @@ export default connect(state => {
     },
     counterparts: state.loadingData.counterparts
   };
-})(TransacitonsTable);
+}, dispatch => ({
+  clearFilters: () => {
+    dispatch(clearFilters() );
+  }
+}) )(TransacitonsTable);

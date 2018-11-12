@@ -34,6 +34,15 @@ export default class AddTransactionDialog extends Component {
     });
   }
 
+  isThereDialogInURL () {
+    return window.location.pathname.indexOf("addTransaction") !== -1;
+  }
+
+  componentDidMount() {
+    if (this.isThereDialogInURL() )
+      this.props.toggleDialog(true);
+  }
+
   handleClose = isSended => () => {
     if (isSended) {
       this.props.addTransaction({
@@ -50,12 +59,7 @@ export default class AddTransactionDialog extends Component {
     }
 
     this.props.toggleDialog(false);
-    this.props.history.goBack();
   };
-
-  componentDidMount() {
-    this.props.toggleDialog(true);
-  }
 
   render() {
     const { isEditing, type, value, date, time, counterpartId } = this.state;

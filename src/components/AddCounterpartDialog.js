@@ -18,6 +18,15 @@ export default class AddCounterpartDialog extends Component {
     });
   }
 
+  isThereDialogInURL () {
+    return window.location.pathname.indexOf("addCounterpart") !== -1;
+  }
+
+  componentDidMount() {
+    if (this.isThereDialogInURL() )
+      this.props.toggleDialog(true);
+  }
+
   handleClose = isSended => () => {
     if (isSended) {
       this.setState({
@@ -32,12 +41,10 @@ export default class AddCounterpartDialog extends Component {
     }
 
     this.props.toggleDialog(false);
-    this.props.history.goBack();
-  };
 
-  componentDidMount() {
-    this.props.toggleDialog(true);
-  }
+    if (this.isThereDialogInURL() )
+      window.history.back();
+  };
 
   render() {
     const { isEditing, name } = this.state;

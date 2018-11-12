@@ -1,4 +1,5 @@
 export const TOGGLE_FILTER_BTN = 'TOGGLE_FILTER_BTN';
+export const CLEAR_FILTERS = 'CLEAR_FILTERS';
 
 export const DATA_REQUEST = 'DATA_REQUEST';
 export const DATA_SUCCESS = 'DATA_SUCCESS';

@@ -6,9 +6,8 @@ import {
   Redirect
 } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import FilterBtnGroup from './FilterBtnGroup';
-import TransactionsTable from '../containers/TransactionsTable';
-import CounterpartsTable from '../containers/CounterpartsTable';
+import TransactionsPage from '../pages/TransactionsPage';
+import CounterpartsPage from '../pages/CounterpartsPage';
 import AddTransactionDialog from '../containers/AddTransactionDialog';
 import AddCounterpartDialog from '../containers/AddCounterpartDialog';
 import BtnTogggle from './BtnToggle';
@@ -20,7 +19,6 @@ import { setColorTheme } from '../logic/setColorTheme';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import '../stylesheets/App.css';
 
-
 const DEFAULT_LANGUAGE_CODE = "ru";
 
 export default class App extends Component {
@@ -28,6 +26,7 @@ export default class App extends Component {
     super(props);
 
     this.appRef = React.createRef();
+
     const { getData } = this.props;
 
     getData('transactions', 'http://localhost:3001/transactions');
@@ -70,7 +69,7 @@ export default class App extends Component {
   render() {
     return (
       <Router>
-        <Route render={({ location, history }) => (
+        <Route render={({ location }) => (
           <LanguageContext.Provider
             value={languages[this.state.language]}>
             <LanguageContext.Consumer>
@@ -117,37 +116,22 @@ export default class App extends Component {
                           classNames="fade"
                           timeout={1000}>
                           <div>
-                            <Switch location={location}>
+                            <Switch>
                               <Route
                                 path="/transactions"
-                                render={() => (
-                                  <div className="wrapper">
-                                    <FilterBtnGroup />
-                                    <TransactionsTable />
-                                  </div>
-                                )} />
+                                component={TransactionsPage} />
                               <Route
                                 path="/counterparts"
-                                render={() => (
-                                  <div className="wrapper">
-                                    <CounterpartsTable />
-                                  </div>
-                                )} />
+                                component={CounterpartsPage} />
                               <Route
                                 render={() => <Redirect to="/transactions" /> } />
-                            </Switch>
-                            <Switch location={location}>
-                              <Route
-                                path="/:something/addTransaction"
-                                render={() => <AddTransactionDialog history={history} /> } />
-                              <Route
-                                path="/:something/addCounterpart"
-                                render={() => <AddCounterpartDialog history={history} /> } />
                             </Switch>
                           </div>
                         </CSSTransition>
                       </TransitionGroup>
                     </main>
+                    <AddTransactionDialog />
+                    <AddCounterpartDialog />
                     <NightFeaturePresentDialog stripeHandler={this.state.stripeHandler}/>
                   </div>
                 </MuiThemeProvider>

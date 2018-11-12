@@ -28,7 +28,7 @@ const ths = language => [
 ];
 
 const tbody = ({ language, sort, isReverse, data }) => {
-  const { transactions, counterparts, currencyRate } = data;
+  const { transactions, counterparts, currencyUSDRate } = data;
 
   let { data: transactionData } = transactions;
 
@@ -50,7 +50,7 @@ const tbody = ({ language, sort, isReverse, data }) => {
               {
                 language.name === "ru"
                   ? transaction.value
-                  : `$${(transaction.value / currencyRate.data.Valute.USD.Value).toFixed(2)}`
+                  : `$${(transaction.value / currencyUSDRate.data).toFixed(2)}`
               }
             </td>
             <td>
@@ -70,19 +70,21 @@ class TransactionsTable extends Component {
   constructor(props) {
     super(props);
 
+    this.props.clearFilters();
+
     axios('https://www.cbr-xml-daily.ru/daily_json.js')
       .then(res => {
         this.setState({
-          currencyRate: {
+          currencyUSDRate: {
             loadingState: "success",
-            data: res.data
+            data: res.data.Valute.USD.Value
           }
         });
       });
   }
 
   state = {
-    currencyRate: {
+    currencyUSDRate: {
       loadingState: "request",
       data: {}
     }
@@ -90,7 +92,8 @@ class TransactionsTable extends Component {
 
   render() {
     const { transactions, counterparts } = this.props;
-    const { currencyRate } = this.state;
+    const { currencyUSDRate } = this.state;
+
     return (
       <SmartTable
         ths={ths}
@@ -98,7 +101,7 @@ class TransactionsTable extends Component {
         data={{
           transactions,
           counterparts,
-          currencyRate
+          currencyUSDRate
         }}
         tbody={tbody} />
     );
