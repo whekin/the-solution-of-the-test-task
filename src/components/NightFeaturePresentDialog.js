@@ -40,11 +40,11 @@ class NightFeaturePresentDialog extends Component {
           </center>
           <ul>
             {[
-              "You can either pay $0.99 and get the nice theme or hack this site. For that:",
-              "Open broser developer tools",
-              "Click on tab &quot;Console&quot;",
-              "Type down: <code>localStorage.setItem(&quot;isActiveFeatureNightTheme&quot;, true);</code>",
-              "Update the page"
+              <span>You can either pay $0.99 and get the nice theme or hack this site. For that:</span>,
+              <span>Open broser developer tools</span>,
+              <span>Click on tab &quot;Console&quot;</span>,
+              <span>Type down: <code>localStorage.setItem(&quot;isActiveFeatureNightTheme&quot;, true);</code></span>,
+              <span>Update the page</span>
             ].map( (text, i) => (
               <li key={i} className={this.props.classes.li}>
                 <DialogContentText>
